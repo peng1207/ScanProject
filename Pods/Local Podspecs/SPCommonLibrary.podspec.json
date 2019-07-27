@@ -1,0 +1,43 @@
+{
+  "name": "SPCommonLibrary",
+  "version": "0.0.1.16",
+  "summary": "公共库",
+  "description": "功能有",
+  "homepage": "https://github.com/peng1207/SPCommonLibrary",
+  "license": "MIT",
+  "authors": {
+    "peng1207": "email@address.com"
+  },
+  "platforms": {
+    "ios": "10.0"
+  },
+  "swift_versions": "4.2",
+  "source": {
+    "git": "https://github.com/peng1207/SPCommonLibrary.git",
+    "tag": "0.0.1.16"
+  },
+  "dependencies": {
+    "SnapKit": [
+
+    ]
+  },
+  "subspecs": [
+    {
+      "name": "Public",
+      "source_files": "Sources/Public/**/*"
+    },
+    {
+      "name": "Request",
+      "source_files": "Sources/Request/**/*",
+      "dependencies": {
+        "Alamofire": [
+          "~> 5.0.0-beta.6"
+        ],
+        "SPCommonLibrary/Public": [
+
+        ]
+      }
+    }
+  ],
+  "swift_version": "4.2"
+}

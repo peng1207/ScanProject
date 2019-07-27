@@ -37,5 +37,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>使用摄像头进行扫描二维码或条形码，若不允许，将无法扫描</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string></string>
 </dict>
 </plist>

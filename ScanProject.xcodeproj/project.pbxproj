@@ -3,16 +3,24 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		3274367F0708381BCCCF19AA /* Pods_ScanProjectUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 982DEB758C3C83603EF67E83 /* Pods_ScanProjectUITests.framework */; };
 		9E2C6E4C211F4ADD00091EF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2C6E4B211F4ADD00091EF6 /* AppDelegate.swift */; };
-		9E2C6E4E211F4ADD00091EF6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2C6E4D211F4ADD00091EF6 /* ViewController.swift */; };
 		9E2C6E53211F4ADE00091EF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E2C6E52211F4ADE00091EF6 /* Assets.xcassets */; };
 		9E2C6E61211F4ADF00091EF6 /* ScanProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2C6E60211F4ADF00091EF6 /* ScanProjectTests.swift */; };
 		9E2C6E6C211F4ADF00091EF6 /* ScanProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2C6E6B211F4ADF00091EF6 /* ScanProjectUITests.swift */; };
+		9E9D744622EC22570033A259 /* SPVideoPreviewLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9D744522EC22570033A259 /* SPVideoPreviewLayerView.swift */; };
+		9E9D744822EC227A0033A259 /* SPScanManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9D744722EC227A0033A259 /* SPScanManager.swift */; };
+		9EDC279422EB04D200F22529 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9EDC279622EB04D200F22529 /* Localizable.strings */; };
+		9EDC279A22EB052D00F22529 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9EDC279C22EB052D00F22529 /* InfoPlist.strings */; };
+		9EDC27A722EBEF2C00F22529 /* SPBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDC27A622EBEF2C00F22529 /* SPBaseVC.swift */; };
+		9EDC27A922EBF16B00F22529 /* SPBaseNavVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDC27A822EBF16B00F22529 /* SPBaseNavVC.swift */; };
+		9EDC27AB22EBF27D00F22529 /* SPScanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDC27AA22EBF27D00F22529 /* SPScanVC.swift */; };
+		9EDC27AD22EBF2F400F22529 /* SPQRCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDC27AC22EBF2F400F22529 /* SPQRCodeVC.swift */; };
+		9EDC27AF22EBF31A00F22529 /* SPHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDC27AE22EBF31A00F22529 /* SPHistoryVC.swift */; };
 		AE66DDAF3F79CC8BE9892426 /* Pods_ScanProjectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54C570A87D551F80D5B9242A /* Pods_ScanProjectTests.framework */; };
 		D31EC0B2EB49B6E2C27BCF48 /* Pods_ScanProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DCC42A1DD6CF1224EB6A684 /* Pods_ScanProject.framework */; };
 /* End PBXBuildFile section */
@@ -42,7 +50,6 @@
 		982DEB758C3C83603EF67E83 /* Pods_ScanProjectUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScanProjectUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E2C6E48211F4ADD00091EF6 /* ScanProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScanProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E2C6E4B211F4ADD00091EF6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9E2C6E4D211F4ADD00091EF6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9E2C6E52211F4ADE00091EF6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E2C6E57211F4ADE00091EF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E2C6E5C211F4ADF00091EF6 /* ScanProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScanProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,6 +58,17 @@
 		9E2C6E67211F4ADF00091EF6 /* ScanProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScanProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E2C6E6B211F4ADF00091EF6 /* ScanProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanProjectUITests.swift; sourceTree = "<group>"; };
 		9E2C6E6D211F4ADF00091EF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9E9D744522EC22570033A259 /* SPVideoPreviewLayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPVideoPreviewLayerView.swift; sourceTree = "<group>"; };
+		9E9D744722EC227A0033A259 /* SPScanManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPScanManager.swift; sourceTree = "<group>"; };
+		9EDC279522EB04D200F22529 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9EDC279722EB04E200F22529 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		9EDC279B22EB052D00F22529 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		9EDC279D22EB052E00F22529 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9EDC27A622EBEF2C00F22529 /* SPBaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPBaseVC.swift; sourceTree = "<group>"; };
+		9EDC27A822EBF16B00F22529 /* SPBaseNavVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPBaseNavVC.swift; sourceTree = "<group>"; };
+		9EDC27AA22EBF27D00F22529 /* SPScanVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPScanVC.swift; sourceTree = "<group>"; };
+		9EDC27AC22EBF2F400F22529 /* SPQRCodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPQRCodeVC.swift; sourceTree = "<group>"; };
+		9EDC27AE22EBF31A00F22529 /* SPHistoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPHistoryVC.swift; sourceTree = "<group>"; };
 		BAAA7C57A16F6356379F387F /* Pods-ScanProjectUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScanProjectUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ScanProjectUITests/Pods-ScanProjectUITests.release.xcconfig"; sourceTree = "<group>"; };
 		BF32F7A0EBCB791EC1834E55 /* Pods-ScanProjectUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScanProjectUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ScanProjectUITests/Pods-ScanProjectUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		DE3210EA894AD6791A8222A7 /* Pods-ScanProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScanProjectTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ScanProjectTests/Pods-ScanProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -120,10 +138,13 @@
 		9E2C6E4A211F4ADD00091EF6 /* ScanProject */ = {
 			isa = PBXGroup;
 			children = (
+				9EDC27A422EBEF1500F22529 /* Utility */,
+				9EDC279E22EBE65600F22529 /* APP */,
 				9E2C6E4B211F4ADD00091EF6 /* AppDelegate.swift */,
-				9E2C6E4D211F4ADD00091EF6 /* ViewController.swift */,
 				9E2C6E52211F4ADE00091EF6 /* Assets.xcassets */,
 				9E2C6E57211F4ADE00091EF6 /* Info.plist */,
+				9EDC279622EB04D200F22529 /* Localizable.strings */,
+				9EDC279C22EB052D00F22529 /* InfoPlist.strings */,
 			);
 			path = ScanProject;
 			sourceTree = "<group>";
@@ -144,6 +165,59 @@
 				9E2C6E6D211F4ADF00091EF6 /* Info.plist */,
 			);
 			path = ScanProjectUITests;
+			sourceTree = "<group>";
+		};
+		9EDC279E22EBE65600F22529 /* APP */ = {
+			isa = PBXGroup;
+			children = (
+				9EDC279F22EBE65600F22529 /* Controller */,
+				9EDC27A022EBE65600F22529 /* Model */,
+				9EDC27A122EBE65600F22529 /* View */,
+			);
+			path = APP;
+			sourceTree = "<group>";
+		};
+		9EDC279F22EBE65600F22529 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				9EDC27AA22EBF27D00F22529 /* SPScanVC.swift */,
+				9EDC27AC22EBF2F400F22529 /* SPQRCodeVC.swift */,
+				9EDC27AE22EBF31A00F22529 /* SPHistoryVC.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		9EDC27A022EBE65600F22529 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9E9D744722EC227A0033A259 /* SPScanManager.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9EDC27A122EBE65600F22529 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9E9D744522EC22570033A259 /* SPVideoPreviewLayerView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9EDC27A422EBEF1500F22529 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				9EDC27A522EBEF1500F22529 /* Controller */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		9EDC27A522EBEF1500F22529 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				9EDC27A622EBEF2C00F22529 /* SPBaseVC.swift */,
+				9EDC27A822EBF16B00F22529 /* SPBaseNavVC.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		AB90B89F25A0E2CB7BEC78DE /* Pods */ = {
@@ -249,6 +323,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 9E2C6E3F211F4ADD00091EF6;
 			productRefGroup = 9E2C6E49211F4ADD00091EF6 /* Products */;
@@ -268,6 +343,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E2C6E53211F4ADE00091EF6 /* Assets.xcassets in Resources */,
+				9EDC279A22EB052D00F22529 /* InfoPlist.strings in Resources */,
+				9EDC279422EB04D200F22529 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,17 +388,16 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-ScanProject/Pods-ScanProject-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ScanProject/Pods-ScanProject-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ScanProject/Pods-ScanProject-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ScanProject/Pods-ScanProject-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ScanProject/Pods-ScanProject-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9D3A1CA587807BA6264BA487 /* [CP] Check Pods Manifest.lock */ = {
@@ -367,8 +443,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9E2C6E4E211F4ADD00091EF6 /* ViewController.swift in Sources */,
+				9EDC27AB22EBF27D00F22529 /* SPScanVC.swift in Sources */,
+				9EDC27A922EBF16B00F22529 /* SPBaseNavVC.swift in Sources */,
+				9EDC27AF22EBF31A00F22529 /* SPHistoryVC.swift in Sources */,
+				9E9D744622EC22570033A259 /* SPVideoPreviewLayerView.swift in Sources */,
+				9EDC27AD22EBF2F400F22529 /* SPQRCodeVC.swift in Sources */,
 				9E2C6E4C211F4ADD00091EF6 /* AppDelegate.swift in Sources */,
+				9E9D744822EC227A0033A259 /* SPScanManager.swift in Sources */,
+				9EDC27A722EBEF2C00F22529 /* SPBaseVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,11 +485,33 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		9EDC279622EB04D200F22529 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9EDC279522EB04D200F22529 /* en */,
+				9EDC279722EB04E200F22529 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		9EDC279C22EB052D00F22529 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9EDC279B22EB052D00F22529 /* zh-Hans */,
+				9EDC279D22EB052E00F22529 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		9E2C6E6E211F4ADF00091EF6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -468,6 +572,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -528,7 +633,10 @@
 				DEVELOPMENT_TEAM = 2X8ED8ZMS2;
 				INFOPLIST_FILE = ScanProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shupenghuang.scan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -546,7 +654,10 @@
 				DEVELOPMENT_TEAM = 2X8ED8ZMS2;
 				INFOPLIST_FILE = ScanProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shupenghuang.scan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -563,7 +674,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2X8ED8ZMS2;
 				INFOPLIST_FILE = ScanProjectTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shupenghuang.scan.ScanProjectTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -581,7 +696,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2X8ED8ZMS2;
 				INFOPLIST_FILE = ScanProjectTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shupenghuang.scan.ScanProjectTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -598,7 +717,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2X8ED8ZMS2;
 				INFOPLIST_FILE = ScanProjectUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shupenghuang.scan.ScanProjectUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -615,7 +738,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2X8ED8ZMS2;
 				INFOPLIST_FILE = ScanProjectUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shupenghuang.scan.ScanProjectUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
