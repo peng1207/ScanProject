@@ -5,3 +5,7 @@
   Created by 黄树鹏 on 2019/7/26.
   Copyright © 2019 shupenghuang. All rights reserved.
 */
+"no_camera_auth" = "无法扫描,请前往设置开启相机权限，是否前往?";
+"go_to" = "前往";
+"cance" = "取消";
+"know" = "知道";

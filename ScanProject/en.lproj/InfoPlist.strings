@@ -6,3 +6,6 @@
   Copyright © 2019 shupenghuang. All rights reserved.
 */
 CFBundleName = "Scan";
+CFBundleDisplayName = "Scan";
+NSCameraUsageDescription = "Scanning QR code or bar code with a camera will not be possible without permission";
+NSPhotoLibraryAddUsageDescription = "Save the picture to the album. If it is not allowed, it will not be saved";

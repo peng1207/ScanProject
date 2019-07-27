@@ -111,7 +111,7 @@ extension SPVideoPreviewLayerView {
     func sp_startAnimation(){
         sp_startTimer()
     }
-    func sp_stopANimation(){
+    func sp_stopAnimation(){
         sp_stopTimer()
     }
     

@@ -9,7 +9,7 @@
 import Foundation
 import SnapKit
 import AVFoundation
-
+import SPCommonLibrary
 class SPScanVC: SPBaseVC {
     fileprivate lazy var manager : SPScanManager = {
         return SPScanManager()
@@ -25,12 +25,14 @@ class SPScanVC: SPBaseVC {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        sp_start()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        sp_stop()
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -68,9 +70,27 @@ extension SPScanVC {
         }) { (data) in
             
         }
+    }
+    
+    fileprivate func sp_dealNoAuth(){
+        let alertController = UIAlertController(title: nil, message: SPLanguageChange.sp_getString(key: "no_camera_auth") , preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addAction(UIAlertAction(title: SPLanguageChange.sp_getString(key: "go_to"), style: UIAlertActionStyle.default, handler: { (action) in
+            
+        }))
+        alertController.addAction(UIAlertAction(title: SPLanguageChange.sp_getString(key: "know"), style: UIAlertActionStyle.cancel, handler: { (action) in
+            
+        }))
+        self.present(alertController, animated: true, completion: nil)
+        
+    }
+    
+    func sp_start(){
         self.manager.sp_start()
         self.previewLayer.sp_startAnimation()
     }
-    
+    func sp_stop(){
+        self.manager.sp_stop()
+        self.previewLayer.sp_stopAnimation()
+    }
 }
 

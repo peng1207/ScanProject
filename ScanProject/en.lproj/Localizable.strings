@@ -5,3 +5,7 @@
   Created by 黄树鹏 on 2019/7/26.
   Copyright © 2019 shupenghuang. All rights reserved.
 */
+"no_camera_auth" = "Unable to scan, please go to the settings to open the camera permission, whether to go?";
+"go_to" = "Go to";
+"cance" = "Cance";
+"know" = "Know";
