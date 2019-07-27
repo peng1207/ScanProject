@@ -14,6 +14,7 @@
 		9E2C6E6C211F4ADF00091EF6 /* ScanProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2C6E6B211F4ADF00091EF6 /* ScanProjectUITests.swift */; };
 		9E9D744622EC22570033A259 /* SPVideoPreviewLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9D744522EC22570033A259 /* SPVideoPreviewLayerView.swift */; };
 		9E9D744822EC227A0033A259 /* SPScanManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9D744722EC227A0033A259 /* SPScanManager.swift */; };
+		9E9D744E22EC4FFB0033A259 /* SPQRCodeUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9D744D22EC4FFB0033A259 /* SPQRCodeUtil.swift */; };
 		9EDC279422EB04D200F22529 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9EDC279622EB04D200F22529 /* Localizable.strings */; };
 		9EDC279A22EB052D00F22529 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9EDC279C22EB052D00F22529 /* InfoPlist.strings */; };
 		9EDC27A722EBEF2C00F22529 /* SPBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDC27A622EBEF2C00F22529 /* SPBaseVC.swift */; };
@@ -60,6 +61,7 @@
 		9E2C6E6D211F4ADF00091EF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E9D744522EC22570033A259 /* SPVideoPreviewLayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPVideoPreviewLayerView.swift; sourceTree = "<group>"; };
 		9E9D744722EC227A0033A259 /* SPScanManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPScanManager.swift; sourceTree = "<group>"; };
+		9E9D744D22EC4FFB0033A259 /* SPQRCodeUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SPQRCodeUtil.swift; sourceTree = "<group>"; };
 		9EDC279522EB04D200F22529 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9EDC279722EB04E200F22529 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		9EDC279B22EB052D00F22529 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -167,6 +169,14 @@
 			path = ScanProjectUITests;
 			sourceTree = "<group>";
 		};
+		9E9D744C22EC4FFB0033A259 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9E9D744D22EC4FFB0033A259 /* SPQRCodeUtil.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		9EDC279E22EBE65600F22529 /* APP */ = {
 			isa = PBXGroup;
 			children = (
@@ -206,6 +216,7 @@
 		9EDC27A422EBEF1500F22529 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				9E9D744C22EC4FFB0033A259 /* Model */,
 				9EDC27A522EBEF1500F22529 /* Controller */,
 			);
 			path = Utility;
@@ -450,6 +461,7 @@
 				9EDC27AD22EBF2F400F22529 /* SPQRCodeVC.swift in Sources */,
 				9E2C6E4C211F4ADD00091EF6 /* AppDelegate.swift in Sources */,
 				9E9D744822EC227A0033A259 /* SPScanManager.swift in Sources */,
+				9E9D744E22EC4FFB0033A259 /* SPQRCodeUtil.swift in Sources */,
 				9EDC27A722EBEF2C00F22529 /* SPBaseVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
