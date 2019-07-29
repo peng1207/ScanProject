@@ -1,6 +1,6 @@
 PODS:
   - SnapKit (5.0.0)
-  - SPCommonLibrary/Public (0.0.1.17):
+  - SPCommonLibrary/Public (0.0.1.18):
     - SnapKit
 
 DEPENDENCIES:
@@ -14,7 +14,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
-  SPCommonLibrary: 0ae4cf0d05b320d5579ae9b17d9ed14986790c28
+  SPCommonLibrary: 8ef7975506b55b9091edf08b6c414f92f2d92389
 
 PODFILE CHECKSUM: cda40a1d1b60e5a5f55183bf267565e422ed7fff
 

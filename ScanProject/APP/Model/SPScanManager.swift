@@ -93,6 +93,7 @@ class SPScanManager : NSObject,AVCaptureMetadataOutputObjectsDelegate{
 //            }
         }
         if let layer = self.previewLayer {
+            layer.videoGravity = .resizeAspectFill
             layer.session = self.captureSession
         }
         

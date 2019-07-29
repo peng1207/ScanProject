@@ -209,3 +209,16 @@ public func sp_getKeyBoardheight(notification:Notification)->CGFloat{
     let height = keyboardRec.size.height
     return height
 }
+
+public func sp_sysOpen() {
+    //打开设置界面
+    
+    if let url = URL(string: UIApplication.openSettingsURLString){
+        if UIApplication.shared.canOpenURL(url){
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+        
+        
+    }
+    
+}

@@ -31,7 +31,6 @@ open class SPLanguageChange {
             }
         }
         return key
-       
     }
     /*
      初始化语言

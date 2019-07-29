@@ -1,6 +1,6 @@
 {
   "name": "SPCommonLibrary",
-  "version": "0.0.1.16",
+  "version": "0.0.1.17",
   "summary": "公共库",
   "description": "功能有",
   "homepage": "https://github.com/peng1207/SPCommonLibrary",
@@ -14,7 +14,7 @@
   "swift_versions": "4.2",
   "source": {
     "git": "https://github.com/peng1207/SPCommonLibrary.git",
-    "tag": "0.0.1.16"
+    "tag": "0.0.1.17"
   },
   "dependencies": {
     "SnapKit": [

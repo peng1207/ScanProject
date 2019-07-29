@@ -10,18 +10,18 @@ import Foundation
 import UIKit
 import AVFoundation
 import SnapKit
-
+import SPCommonLibrary
 class SPVideoPreviewLayerView: UIView {
     fileprivate var timer : Timer?
     
     fileprivate lazy var lineView : UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.black
+        view.backgroundColor = SPColorForHexString(hex: SPColor.color_2a96fd.rawValue)
         return view
     }()
-    fileprivate lazy var scanView : UIView = {
-        let view = UIView()
-        view.sp_border(color: UIColor.green, width: 1)
+    fileprivate lazy var scanView : UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage(named: "ScanBox")
         return view
     }()
     fileprivate lazy var leftView : UIView = {
@@ -139,6 +139,8 @@ extension SPVideoPreviewLayerView {
         
         if y > self.scanView.sp_maxY() {
             y = self.scanView.sp_y()
+        }else if y < self.scanView.sp_y() {
+            y = self.scanView.sp_y()
         }
         
         UIView.animate(withDuration: 0.1, animations: {
@@ -146,7 +148,6 @@ extension SPVideoPreviewLayerView {
         }) { (finish) in
           
         }
- 
     }
     
 }
