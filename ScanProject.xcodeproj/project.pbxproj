@@ -16,6 +16,7 @@
 		9E9D744822EC227A0033A259 /* SPScanManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9D744722EC227A0033A259 /* SPScanManager.swift */; };
 		9E9D744E22EC4FFB0033A259 /* SPQRCodeUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9D744D22EC4FFB0033A259 /* SPQRCodeUtil.swift */; };
 		9E9D745D22EE911F0033A259 /* SPEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9D745C22EE911F0033A259 /* SPEnum.swift */; };
+		9E9D745F22EEC2BD0033A259 /* SPVoiceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9D745E22EEC2BD0033A259 /* SPVoiceVC.swift */; };
 		9EDC279422EB04D200F22529 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9EDC279622EB04D200F22529 /* Localizable.strings */; };
 		9EDC279A22EB052D00F22529 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9EDC279C22EB052D00F22529 /* InfoPlist.strings */; };
 		9EDC27A722EBEF2C00F22529 /* SPBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDC27A622EBEF2C00F22529 /* SPBaseVC.swift */; };
@@ -23,6 +24,8 @@
 		9EDC27AB22EBF27D00F22529 /* SPScanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDC27AA22EBF27D00F22529 /* SPScanVC.swift */; };
 		9EDC27AD22EBF2F400F22529 /* SPQRCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDC27AC22EBF2F400F22529 /* SPQRCodeVC.swift */; };
 		9EDC27AF22EBF31A00F22529 /* SPHistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDC27AE22EBF31A00F22529 /* SPHistoryVC.swift */; };
+		9EDCFA3D22EEE6CE0058F291 /* SPBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDCFA3C22EEE6CE0058F291 /* SPBaseModel.swift */; };
+		9EDCFA3F22EEE6E90058F291 /* SPQRCodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDCFA3E22EEE6E90058F291 /* SPQRCodeModel.swift */; };
 		AE66DDAF3F79CC8BE9892426 /* Pods_ScanProjectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54C570A87D551F80D5B9242A /* Pods_ScanProjectTests.framework */; };
 		D31EC0B2EB49B6E2C27BCF48 /* Pods_ScanProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DCC42A1DD6CF1224EB6A684 /* Pods_ScanProject.framework */; };
 /* End PBXBuildFile section */
@@ -64,6 +67,7 @@
 		9E9D744722EC227A0033A259 /* SPScanManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPScanManager.swift; sourceTree = "<group>"; };
 		9E9D744D22EC4FFB0033A259 /* SPQRCodeUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SPQRCodeUtil.swift; sourceTree = "<group>"; };
 		9E9D745C22EE911F0033A259 /* SPEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPEnum.swift; sourceTree = "<group>"; };
+		9E9D745E22EEC2BD0033A259 /* SPVoiceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPVoiceVC.swift; sourceTree = "<group>"; };
 		9EDC279522EB04D200F22529 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9EDC279722EB04E200F22529 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		9EDC279B22EB052D00F22529 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -73,6 +77,8 @@
 		9EDC27AA22EBF27D00F22529 /* SPScanVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPScanVC.swift; sourceTree = "<group>"; };
 		9EDC27AC22EBF2F400F22529 /* SPQRCodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPQRCodeVC.swift; sourceTree = "<group>"; };
 		9EDC27AE22EBF31A00F22529 /* SPHistoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPHistoryVC.swift; sourceTree = "<group>"; };
+		9EDCFA3C22EEE6CE0058F291 /* SPBaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPBaseModel.swift; sourceTree = "<group>"; };
+		9EDCFA3E22EEE6E90058F291 /* SPQRCodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPQRCodeModel.swift; sourceTree = "<group>"; };
 		BAAA7C57A16F6356379F387F /* Pods-ScanProjectUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScanProjectUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ScanProjectUITests/Pods-ScanProjectUITests.release.xcconfig"; sourceTree = "<group>"; };
 		BF32F7A0EBCB791EC1834E55 /* Pods-ScanProjectUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScanProjectUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ScanProjectUITests/Pods-ScanProjectUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		DE3210EA894AD6791A8222A7 /* Pods-ScanProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScanProjectTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ScanProjectTests/Pods-ScanProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -176,6 +182,7 @@
 			children = (
 				9E9D744D22EC4FFB0033A259 /* SPQRCodeUtil.swift */,
 				9E9D745C22EE911F0033A259 /* SPEnum.swift */,
+				9EDCFA3C22EEE6CE0058F291 /* SPBaseModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -196,6 +203,7 @@
 				9EDC27AA22EBF27D00F22529 /* SPScanVC.swift */,
 				9EDC27AC22EBF2F400F22529 /* SPQRCodeVC.swift */,
 				9EDC27AE22EBF31A00F22529 /* SPHistoryVC.swift */,
+				9E9D745E22EEC2BD0033A259 /* SPVoiceVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -204,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				9E9D744722EC227A0033A259 /* SPScanManager.swift */,
+				9EDCFA3E22EEE6E90058F291 /* SPQRCodeModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -461,12 +470,15 @@
 				9EDC27A922EBF16B00F22529 /* SPBaseNavVC.swift in Sources */,
 				9EDC27AF22EBF31A00F22529 /* SPHistoryVC.swift in Sources */,
 				9E9D744622EC22570033A259 /* SPVideoPreviewLayerView.swift in Sources */,
+				9EDCFA3F22EEE6E90058F291 /* SPQRCodeModel.swift in Sources */,
 				9EDC27AD22EBF2F400F22529 /* SPQRCodeVC.swift in Sources */,
 				9E9D745D22EE911F0033A259 /* SPEnum.swift in Sources */,
 				9E2C6E4C211F4ADD00091EF6 /* AppDelegate.swift in Sources */,
 				9E9D744822EC227A0033A259 /* SPScanManager.swift in Sources */,
 				9E9D744E22EC4FFB0033A259 /* SPQRCodeUtil.swift in Sources */,
 				9EDC27A722EBEF2C00F22529 /* SPBaseVC.swift in Sources */,
+				9E9D745F22EEC2BD0033A259 /* SPVoiceVC.swift in Sources */,
+				9EDCFA3D22EEE6CE0058F291 /* SPBaseModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,9 +9,12 @@
 import Foundation
 import SnapKit
 class SPQRCodeVC: SPBaseVC {
+    var qrCodeModel : SPQRCodeModel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.sp_setupUI()
+        // 文本 网址 名片 wifi 语音识别 位置 活码(暂时不做)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

@@ -9,6 +9,9 @@
 import Foundation
 
 
-enum SPColor : String {
+enum SPHexColor : String {
     case color_2a96fd   = "#2a96fd"
+    case color_eeeeee = "#eeeeee"
+    case color_333333 = "#333333"
+    case color_000000 = "#000000"
 }

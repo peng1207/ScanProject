@@ -16,7 +16,7 @@ class SPVideoPreviewLayerView: UIView {
     
     fileprivate lazy var lineView : UIView = {
         let view = UIView()
-        view.backgroundColor = SPColorForHexString(hex: SPColor.color_2a96fd.rawValue)
+        view.backgroundColor = SPColorForHexString(hex: SPHexColor.color_2a96fd.rawValue)
         return view
     }()
     fileprivate lazy var scanView : UIImageView = {

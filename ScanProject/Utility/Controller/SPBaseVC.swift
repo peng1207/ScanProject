@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SPCommonLibrary
 class SPBaseVC : UIViewController{
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return .lightContent
@@ -32,7 +33,7 @@ extension  SPBaseVC{
     fileprivate func setupBase(){
         // UI适配
         self.edgesForExtendedLayout = UIRectEdge.init(rawValue: 0)
-//        self.view.backgroundColor = SPColorForHexString(hex: SP_HexColor.color_eeeeee.rawValue)
+        self.view.backgroundColor = SPColorForHexString(hex: SPHexColor.color_eeeeee.rawValue)
     }
     
 }

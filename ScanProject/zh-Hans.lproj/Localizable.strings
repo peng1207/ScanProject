@@ -6,7 +6,11 @@
   Copyright © 2019 shupenghuang. All rights reserved.
 */
 "no_camera_auth" = "无法扫描,请前往设置开启相机权限，是否前往?";
+"no_record_auth" = "请前往设置开启麦克风权限，是否前往?";
+"no_speech_auth" = "请前往设置开启语音识别权限，是否前往?";
 "go_to" = "前往";
 "cance" = "取消";
 "know" = "知道";
 "tips" = "提示";
+"recognition_in_progress" = "正在识别中";
+"stop_recognition" = "停止识别";

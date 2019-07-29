@@ -9,3 +9,6 @@ CFBundleName = "Scan";
 CFBundleDisplayName = "Scan";
 NSCameraUsageDescription = "Scanning QR code or bar code with a camera will not be possible without permission";
 NSPhotoLibraryAddUsageDescription = "Save the picture to the album. If it is not allowed, it will not be saved";
+NSSpeechRecognitionUsageDescription = "You need to convert your voice to text. If not, you can't convert it.
+";
+NSMicrophoneUsageDescription = "Use your microphone for voice recording. If not allowed, it cannot be recorded.";

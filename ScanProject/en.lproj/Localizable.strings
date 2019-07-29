@@ -6,7 +6,11 @@
   Copyright © 2019 shupenghuang. All rights reserved.
 */
 "no_camera_auth" = "Unable to scan, please go to the settings to open the camera permission, whether to go?";
+"no_record_auth" = "Please go to set the right to turn on the microphone. Do you want to go?";
+"no_speech_auth" = "Please go to set the voice recognition privilege. Do you want to go?";
 "go_to" = "Go to";
 "cance" = "Cance";
 "know" = "Know";
 "tips" = "Tips";
+"recognition_in_progress" = "Recognition in progress";
+"stop_recognition" = "Stop Recognition";
