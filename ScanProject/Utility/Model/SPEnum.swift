@@ -51,5 +51,9 @@ enum SPBtnType {
     case photo
     /// 相机
     case camera
+    /// 字体在二维码上面
+    case fontTop
+    /// 字体在二维码下面
+    case fontBottom
 }
 

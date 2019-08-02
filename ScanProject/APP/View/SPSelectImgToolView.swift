@@ -9,10 +9,17 @@
 import Foundation
 import UIKit
 import SnapKit
+import SPCommonLibrary
+
 class SPSelectImgToolView:  UIView{
     
-    
-    
+    lazy var sliderView : SPSliderView = {
+        let view = SPSliderView()
+        view.title = SPLanguageChange.sp_getString(key: "radius_size")
+        view.isHidden = true
+        return view
+    }()
+
     var selectBlock : SPBtnTypeComplete?
     
     override init(frame: CGRect) {

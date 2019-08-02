@@ -21,6 +21,9 @@ class SPSelectImgVC: SPBaseVC {
         view.selectBlock = { [weak self] (type)in
             self?.sp_dealSelect(type: type)
         }
+        view.sliderView.valueBlock = { [weak self] (radius) in
+            self?.sp_deal(radius: radius)
+        }
         return view
     }()
     fileprivate lazy var selectBtn : UIButton = {
@@ -146,6 +149,13 @@ extension SPSelectImgVC {
         }
         block(self.qrCodeModel)
         sp_clickBack()
+    }
+    /// 处理获取到半径
+    ///
+    /// - Parameter radius: 半径
+    fileprivate func sp_deal(radius : Float){
+        self.qrCodeModel?.iconRadius = radius
+        sp_setupData()
     }
 }
 

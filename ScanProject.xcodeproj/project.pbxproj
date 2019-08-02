@@ -19,8 +19,9 @@
 		9E05D6A822F3DE6200D9E907 /* SPAddTextVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E05D6A722F3DE6200D9E907 /* SPAddTextVC.swift */; };
 		9E05D6AA22F3EA2900D9E907 /* SPAddTextToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E05D6A922F3EA2900D9E907 /* SPAddTextToolView.swift */; };
 		9E05D6AC22F4095500D9E907 /* SPFontNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E05D6AB22F4095500D9E907 /* SPFontNameView.swift */; };
-		9E05D6AE22F4096500D9E907 /* SPFontSizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E05D6AD22F4096500D9E907 /* SPFontSizeView.swift */; };
 		9E05D6B022F41E8300D9E907 /* SPSelectImgToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E05D6AF22F41E8300D9E907 /* SPSelectImgToolView.swift */; };
+		9E05D6B422F4303800D9E907 /* SPTextToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E05D6B322F4303800D9E907 /* SPTextToolView.swift */; };
+		9E05D6B622F43A6B00D9E907 /* SPSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E05D6B522F43A6B00D9E907 /* SPSliderView.swift */; };
 		9E27B29322F04724004638A1 /* SPKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E27B29222F04724004638A1 /* SPKeyboardView.swift */; };
 		9E27B29522F12370004638A1 /* SPIndexCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E27B29422F12370004638A1 /* SPIndexCollectionCell.swift */; };
 		9E27B29722F1272F004638A1 /* SPIndexCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E27B29622F1272F004638A1 /* SPIndexCollectionView.swift */; };
@@ -90,8 +91,9 @@
 		9E05D6A722F3DE6200D9E907 /* SPAddTextVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPAddTextVC.swift; sourceTree = "<group>"; };
 		9E05D6A922F3EA2900D9E907 /* SPAddTextToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPAddTextToolView.swift; sourceTree = "<group>"; };
 		9E05D6AB22F4095500D9E907 /* SPFontNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPFontNameView.swift; sourceTree = "<group>"; };
-		9E05D6AD22F4096500D9E907 /* SPFontSizeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPFontSizeView.swift; sourceTree = "<group>"; };
 		9E05D6AF22F41E8300D9E907 /* SPSelectImgToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPSelectImgToolView.swift; sourceTree = "<group>"; };
+		9E05D6B322F4303800D9E907 /* SPTextToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPTextToolView.swift; sourceTree = "<group>"; };
+		9E05D6B522F43A6B00D9E907 /* SPSliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SPSliderView.swift; sourceTree = "<group>"; };
 		9E27B29222F04724004638A1 /* SPKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPKeyboardView.swift; sourceTree = "<group>"; };
 		9E27B29422F12370004638A1 /* SPIndexCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPIndexCollectionCell.swift; sourceTree = "<group>"; };
 		9E27B29622F1272F004638A1 /* SPIndexCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPIndexCollectionView.swift; sourceTree = "<group>"; };
@@ -299,6 +301,7 @@
 		9EDC27A122EBE65600F22529 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9E05D6B522F43A6B00D9E907 /* SPSliderView.swift */,
 				9E9D744522EC22570033A259 /* SPVideoPreviewLayerView.swift */,
 				9EDCFA5422F02D6A0058F291 /* SPIndexTextView.swift */,
 				9EDCFA4C22EFE7C80058F291 /* SPIndexToolView.swift */,
@@ -312,8 +315,8 @@
 				9E05D69922F2EA8900D9E907 /* SPQRCodeView.swift */,
 				9E05D6A922F3EA2900D9E907 /* SPAddTextToolView.swift */,
 				9E05D6AB22F4095500D9E907 /* SPFontNameView.swift */,
-				9E05D6AD22F4096500D9E907 /* SPFontSizeView.swift */,
 				9E05D6AF22F41E8300D9E907 /* SPSelectImgToolView.swift */,
+				9E05D6B322F4303800D9E907 /* SPTextToolView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -568,8 +571,8 @@
 				9EDC27AB22EBF27D00F22529 /* SPScanVC.swift in Sources */,
 				9EDCFA5322F01F6B0058F291 /* SPMoreVC.swift in Sources */,
 				9EDCFA5722F02EBC0058F291 /* SPBusinessCardView.swift in Sources */,
-				9E05D6AE22F4096500D9E907 /* SPFontSizeView.swift in Sources */,
 				9E05D6AA22F3EA2900D9E907 /* SPAddTextToolView.swift in Sources */,
+				9E05D6B422F4303800D9E907 /* SPTextToolView.swift in Sources */,
 				9E05D68D22F2D3C000D9E907 /* SPSelectColorVC.swift in Sources */,
 				9EDCFA5922F02ED20058F291 /* SPWifiView.swift in Sources */,
 				9E05D69522F2E1E700D9E907 /* SPColorView.swift in Sources */,
@@ -586,6 +589,7 @@
 				9EDC27AD22EBF2F400F22529 /* SPQRCodeVC.swift in Sources */,
 				9E05D69322F2DC9900D9E907 /* SPVoiceManager.swift in Sources */,
 				9E05D69A22F2EA8900D9E907 /* SPQRCodeView.swift in Sources */,
+				9E05D6B622F43A6B00D9E907 /* SPSliderView.swift in Sources */,
 				9E9D745D22EE911F0033A259 /* SPEnum.swift in Sources */,
 				9E2C6E4C211F4ADD00091EF6 /* AppDelegate.swift in Sources */,
 				9E9D744822EC227A0033A259 /* SPScanManager.swift in Sources */,

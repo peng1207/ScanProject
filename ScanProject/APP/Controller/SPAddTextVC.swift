@@ -17,6 +17,7 @@ class SPAddTextVC: SPBaseVC {
         let view = UITextView()
         view.becomeFirstResponder()
         view.font = sp_fontSize(fontSize: 15)
+        view.textColor = SPColorForHexString(hex: SPHexColor.color_2a96fd.rawValue)
         return view
     }()
     fileprivate lazy var canceBtn : UIButton = {
@@ -57,8 +58,9 @@ class SPAddTextVC: SPBaseVC {
         }
         return view
     }()
-    fileprivate lazy var fontSizeView : SPFontSizeView = {
-        let view = SPFontSizeView()
+    fileprivate lazy var fontSizeView : SPSliderView = {
+        let view = SPSliderView()
+        view.title = SPLanguageChange.sp_getString(key: "fontSize")
         view.valueBlock = { [weak self] (value) in
             self?.sp_deal(fontSize: value)
         }
@@ -181,7 +183,6 @@ extension SPAddTextVC {
     }
     @objc fileprivate func sp_keyboardShow(obj : Notification){
        let height = sp_getKeyBoardheight(notification: obj)
-       sp_log(message: height)
         sp_updateTool(height: height)
         self.toolView.selectModel = nil
     }

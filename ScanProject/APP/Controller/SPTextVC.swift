@@ -20,6 +20,13 @@ class SPTextVC: SPBaseVC {
         }
         return view
     }()
+    fileprivate lazy var toolView : SPTextToolView = {
+        let view = SPTextToolView()
+        view.clickComplete = { [weak self] (type) in
+            self?.sp_dealClick(type: type)
+        }
+        return view
+    }()
     fileprivate lazy var selectBtn : UIButton = {
         let btn = UIButton(type: UIButtonType.custom)
         btn.setImage(UIImage(named: "public_select"), for: UIControlState.normal)
@@ -60,6 +67,8 @@ class SPTextVC: SPBaseVC {
     override func sp_setupUI() {
         self.navigationItem.title = SPLanguageChange.sp_getString(key: "text")
         self.view.addSubview(self.qrCodeView)
+        self.view.addSubview(self.safeView)
+        self.view.addSubview(self.toolView)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: self.canceBtn)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.selectBtn)
         self.sp_addConstraint()
@@ -75,6 +84,19 @@ class SPTextVC: SPBaseVC {
             maker.right.equalTo(self.view).offset(-10)
             maker.height.greaterThanOrEqualTo(0)
             maker.centerY.equalTo(self.view.snp.centerY).offset(0)
+        }
+        self.toolView.snp.makeConstraints { (maker) in
+            maker.left.right.equalTo(self.view).offset(0)
+            if #available(iOS 11.0, *) {
+                maker.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(0)
+            } else {
+                maker.bottom.equalTo(self.view.snp.bottom).offset(0)
+            }
+            maker.height.greaterThanOrEqualTo(0)
+        }
+        self.safeView.snp.makeConstraints { (maker) in
+            maker.left.right.bottom.equalTo(self.view).offset(0)
+            maker.top.equalTo(self.toolView.snp.top).offset(0)
         }
     }
     deinit {
@@ -102,5 +124,17 @@ extension SPTextVC {
         }
         block(self.qrCodeModel)
         sp_clickBack()
+    }
+    fileprivate func sp_dealClick(type : SPBtnType){
+        switch type {
+        case .fontTop:
+            self.qrCodeModel?.textAlignment = K_FONT_TO_TOP
+            sp_setupData()
+        case .fontBottom:
+            self.qrCodeModel?.textAlignment = K_FONT_TO_BOTTOM
+            sp_setupData()
+        default:
+            sp_log(message: "没有其他")
+        }
     }
 }

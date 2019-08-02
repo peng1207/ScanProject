@@ -55,7 +55,7 @@ class SPQRCodeView:  UIView{
             if let img = UIImage(data: codeData){
                 self.iconImgView.image = img
                 self.iconImgView.isHidden = true
-                self.iconImgView.sp_cornerRadius(radius:CGFloat( codeModel.iconRadius))
+                self.iconImgView.sp_cornerRadius(radius:CGFloat( codeModel.iconRadius / 2.0))
             }
         }
         sp_sync { [weak self] in

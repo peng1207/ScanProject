@@ -5,6 +5,10 @@
 //  Created by 黄树鹏 on 2019/7/29.
 //  Copyright © 2019 shupenghuang. All rights reserved.
 //
+/// 字体在顶部
+let K_FONT_TO_TOP = 0
+/// 字体在底部
+let K_FONT_TO_BOTTOM = 1
 
 import Foundation
 

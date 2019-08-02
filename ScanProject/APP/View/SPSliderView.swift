@@ -10,11 +10,16 @@ import Foundation
 import UIKit
 import SnapKit
 import SPCommonLibrary
-class SPFontSizeView:  UIView{
+
+/// 获取滑块值变化
+typealias SPSliderComplete = (_ value : Float)->Void
+
+class SPSliderView:  UIView{
     fileprivate lazy var titleLabel : UILabel = {
         let label = UILabel()
         label.textColor = UIColor.white
         label.textAlignment = .left
+        label.font = sp_fontSize(fontSize: 16)
         return label
     }()
     fileprivate lazy var slider : UISlider = {
@@ -29,7 +34,8 @@ class SPFontSizeView:  UIView{
             sp_setupValue()
         }
     }
-    var valueBlock : ((_ value : Float)->Void)?
+    var title : String?
+    var valueBlock : SPSliderComplete?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -44,7 +50,7 @@ class SPFontSizeView:  UIView{
     }
     /// 赋值
     fileprivate func sp_setupData(){
-       self.titleLabel.text = SPLanguageChange.sp_getString(key: "fontSize") + "  " + sp_getString(string: Int(self.slider.value))
+       self.titleLabel.text = sp_getString(string: self.title) + "  " + sp_getString(string: Int(self.slider.value))
     }
     @objc fileprivate func sp_sliderChange(){
         sp_setupData()
