@@ -13,7 +13,7 @@ public extension UIColor{
     ///
     /// - Parameter hex: 十六进制字符串
     /// - Returns: 颜色
-   public class func colorWithHexString (hex: String,alpha: CGFloat = 1) -> UIColor {
+    class func colorWithHexString (hex: String,alpha: CGFloat = 1) -> UIColor {
         var cString: String = hex.uppercased().trimmingCharacters(in:  CharacterSet.whitespacesAndNewlines)
         if (cString.hasPrefix("#")) {
             cString = (cString as NSString).substring(from: 1)

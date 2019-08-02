@@ -1,7 +1,7 @@
 {
   "name": "SPCommonLibrary",
-  "version": "0.0.1.17",
-  "summary": "公共库",
+  "version": "0.0.1.20",
+  "summary": "公共库 提供基础的功能，对第三方请求的封装功能，增加分享功能",
   "description": "功能有",
   "homepage": "https://github.com/peng1207/SPCommonLibrary",
   "license": "MIT",
@@ -14,7 +14,7 @@
   "swift_versions": "4.2",
   "source": {
     "git": "https://github.com/peng1207/SPCommonLibrary.git",
-    "tag": "0.0.1.17"
+    "tag": "0.0.1.20"
   },
   "dependencies": {
     "SnapKit": [
@@ -37,6 +37,10 @@
 
         ]
       }
+    },
+    {
+      "name": "Share",
+      "source_files": "Sources/Share/*.swift"
     }
   ],
   "swift_version": "4.2"

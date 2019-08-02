@@ -36,6 +36,14 @@ public func sp_screenWidth()->CGFloat{
 public func sp_screenHeight()->CGFloat{
     return UIScreen.main.bounds.size.height
 }
+/// 获取根据屏幕比获取对应的数值
+///
+/// - Parameter value:需要转换的
+/// - Returns: 转换后的值
+public func sp_scale(value : CGFloat) -> CGFloat{
+    return value / UIScreen.main.scale
+}
+
 /// 打印
 ///
 /// - Parameters:

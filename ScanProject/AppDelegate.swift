@@ -17,11 +17,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.backgroundColor = UIColor.white
-        self.window?.rootViewController = SPVoiceVC()
+        let mainVC = SPIndexVC()
+        SPBaseNavVC.sp_initialize()
+        let mainNav = SPBaseNavVC(rootViewController: mainVC)
+        self.window?.rootViewController = mainNav
         self.window?.makeKeyAndVisible()
        
-    
-        // Override point for customization after application launch.
+//        let properties = CIFilter.filterNames(inCategory: kCICategoryBuiltIn)
+//        for fileterName : String in properties {
+//            let filter = CIFilter(name: fileterName)
+//            // 滤镜的参数
+//            sp_log(message: "滤镜名称----\(fileterName)")
+//            sp_log(message: filter?.attributes)
+//        }
+       sp_log(message:  UIFont.familyNames)
+//         Override point for customization after application launch.
         return true
     }
 

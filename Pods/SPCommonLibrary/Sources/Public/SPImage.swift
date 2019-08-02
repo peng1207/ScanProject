@@ -11,6 +11,12 @@ import UIKit
 
 public extension UIImage {
     
+    /// 颜色转图片
+    ///
+    /// - Parameters:
+    ///   - color: 颜色
+    ///   - size: 转换的图片大小
+    /// - Returns: 图片
     class func sp_image(color:UIColor,size : CGSize = CGSize(width: 1, height: 1)) ->UIImage?{
         UIGraphicsBeginImageContext(size)
         let context = UIGraphicsGetCurrentContext()
@@ -20,6 +26,10 @@ public extension UIImage {
         UIGraphicsEndImageContext()
         return image
     }
+    /// view转图片
+    ///
+    /// - Parameter view: 需要转换的view
+    /// - Returns: 图片
     class func sp_image(view : UIView)->UIImage?{
         let saveFrame = view.frame
         var saveContentOffset : CGPoint = CGPoint.zero
@@ -126,5 +136,156 @@ public extension UIImage {
             return outCGImg
         }
         return  inputImg
+    }
+    /// 生成高清图片
+    ///
+    /// - Parameters:
+    ///   - image: 需要生成的图片
+    ///   - size: 需要生成的大小
+    /// - Returns: 图片 转换不成功则返回传进来的图片
+    class func sp_highImg(image : CIImage,size : CGSize) ->UIImage?{
+        let integral : CGRect = image.extent.integral
+        let proportion : CGFloat = min(size.width / integral.width, size.height / integral.height)
+        let width = integral.width * proportion
+        let height = integral.height * proportion
+        let colorSpace : CGColorSpace = CGColorSpaceCreateDeviceGray()
+        if let bitmapRef = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: 0) {
+            let context = CIContext(options: nil)
+            if  let bitmapImage : CGImage = context.createCGImage(image, from: integral) {
+                bitmapRef.interpolationQuality = .none
+                bitmapRef.scaleBy(x: proportion, y: proportion)
+                bitmapRef.draw(bitmapImage, in: integral)
+                if  let img : CGImage = bitmapRef.makeImage() {
+                    return UIImage(cgImage: img)
+                }
+            }
+        }
+        return UIImage(ciImage: image)
+    }
+    /// 图片切圆角
+    ///
+    /// - Parameters:
+    ///   - size: 图片大小
+    ///   - fillColor: 裁切区填充颜色
+    /// - Returns: 圆角图片
+    func sp_cornetImg(size : CGSize ,fillColor : UIColor = UIColor.white)->UIImage{
+        UIGraphicsBeginImageContextWithOptions(size, true, 0)
+        let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        fillColor.setFill()
+        UIRectFill(rect)
+        let path = UIBezierPath(ovalIn: rect)
+        path.addClip()
+        self.draw(in: rect)
+        let resultImg = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        if let img = resultImg {
+            return img
+        }
+        return self
+    }
+    /// 更改图片的颜色
+    ///
+    /// - Parameters:
+    ///   - tintColor: 颜色
+    ///   - blendMode: 类型
+    /// - Returns: 更改后的图片
+    func sp_image(tintColor : UIColor,blendMode:CGBlendMode)->UIImage{
+        UIGraphicsBeginImageContext(self.size)
+        tintColor.setFill()
+        let rect = CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height)
+        UIRectFill(rect)
+        self.draw(in: rect, blendMode: blendMode, alpha: 1.0)
+        if blendMode != .destinationIn {
+            self.draw(in: rect, blendMode: .destinationIn, alpha: 1.0)
+        }
+        let resultImg = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        if let img = resultImg {
+            return img
+        }
+        return self
+    }
+    /// 给图片添加中间icon图片
+    ///
+    /// - Parameters:
+    ///   - centerImg: 中间icon图片
+    ///   - iconSize: 展示在中间icon的大小
+    /// - Returns: 转换后的图片
+    func sp_image(centerImg : UIImage?,iconSize:CGSize)->UIImage{
+        UIGraphicsBeginImageContext(self.size)
+        self.draw(in: CGRect(origin: CGPoint.zero, size: self.size))
+        if let icon = centerImg {
+            let x = (self.size.width - iconSize.width) * 0.5
+            let y = (self.size.height - iconSize.height) * 0.5
+            icon.draw(in: CGRect(x: x, y: y, width: iconSize.width, height: iconSize.height))
+        }
+        let newImg = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        if let img = newImg {
+              return img
+        }
+        return self
+    }
+    /// 获取指定size的图片
+    ///
+    /// - Parameter size: 指定的size
+    /// - Returns: 转换后的图片
+    func sp_resizeImg(size : CGSize)->UIImage?{
+        UIGraphicsBeginImageContext(size)
+        self.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        let newImg = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImg
+    }
+    /// 压缩图片
+    ///
+    /// - Parameters:
+    ///   - maxImageLenght: 最大的尺寸
+    ///   - maxSizeKB: 最大的大小
+    /// - Returns: 转换后的图片
+    func sp_resizeImg(maxImageLenght : CGFloat, maxSizeKB : CGFloat = 1024)->UIImage{
+        var maxSize = maxSizeKB
+        var maxImgSize = maxImageLenght
+        if maxSize <= 0.0 {
+            maxSize = 1024.0
+        }
+        if maxImgSize <= 0.0 {
+            maxImgSize = 1024.0
+        }
+        var newSize = CGSize(width: self.size.width, height: self.size.height)
+        let tempHeight = newSize.height / maxImgSize
+        let tempWidth = newSize.width / maxImgSize
+        if tempWidth > 1.0 && tempWidth > tempHeight{
+            newSize = CGSize(width: self.size.width / tempWidth, height: self.size.height / tempWidth)
+        }else{
+             newSize = CGSize(width: self.size.width / tempHeight, height: self.size.height / tempHeight)
+        }
+        UIGraphicsBeginImageContext(newSize)
+        self.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
+        let newImg = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        if let img = newImg {
+            var  imageData =  img.jpegData(compressionQuality: 1.0)
+            var sizeOriginKB : CGFloat = CGFloat((imageData?.count)!) / 1024.0;
+            //调整大小
+            var resizeRate = 0.9;
+            
+            while (sizeOriginKB > maxSize && resizeRate > 0.1) {
+              
+                imageData = img.jpegData(compressionQuality: CGFloat(resizeRate))
+                
+                sizeOriginKB = CGFloat((imageData?.count)!) / 1024.0;
+                
+                resizeRate -= 0.1;
+                
+            }
+            if let data = imageData {
+                if let newImage = UIImage(data: data){
+                    return newImage
+                }
+            }
+        }
+        
+        return self
     }
 }

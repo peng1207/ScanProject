@@ -5,6 +5,7 @@
 //  Created by 黄树鹏 on 2019/7/27.
 //  Copyright © 2019 shupenghuang. All rights reserved.
 //
+// 扫描
 
 import Foundation
 import SnapKit
@@ -17,7 +18,20 @@ class SPScanVC: SPBaseVC {
     fileprivate lazy var previewLayer : SPVideoPreviewLayerView = {
         return SPVideoPreviewLayerView()
     }()
-    
+    fileprivate lazy var backBtn : UIButton = {
+        let btn = UIButton(type: UIButtonType.custom)
+        btn.setImage(UIImage(named: "public_back"), for: UIControlState.normal)
+        btn.addTarget(self, action: #selector(sp_clickBack), for: UIControlEvents.touchUpInside)
+        return btn
+    }()
+    fileprivate lazy var albumBtn : UIButton = {
+        let btn = UIButton(type: UIButtonType.custom)
+        btn.setImage(UIImage(named: "public_album"), for: UIControlState.normal)
+        btn.addTarget(self, action: #selector(sp_clickAlbum), for: UIControlEvents.touchUpInside)
+        return btn
+    }()
+    fileprivate var isPush : Bool = false
+    fileprivate var needShow : Bool = true
     override func viewDidLoad() {
         super.viewDidLoad()
         self.sp_setupUI()
@@ -25,6 +39,9 @@ class SPScanVC: SPBaseVC {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: isPush ? false : true)
+        self.isPush = false
+        self.needShow = true
         sp_start()
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -32,6 +49,9 @@ class SPScanVC: SPBaseVC {
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        if self.needShow {
+             self.navigationController?.setNavigationBarHidden(false, animated: true)
+        }
         sp_stop()
     }
     override func viewDidDisappear(_ animated: Bool) {
@@ -42,6 +62,8 @@ class SPScanVC: SPBaseVC {
         self.view.backgroundColor = UIColor.black
         self.previewLayer.backgroundColor = UIColor.black
         self.view.addSubview(self.previewLayer)
+        self.view.addSubview(self.backBtn)
+        self.view.addSubview(self.albumBtn)
         self.sp_addConstraint()
     }
     /// 处理有没数据
@@ -58,12 +80,23 @@ class SPScanVC: SPBaseVC {
                 maker.bottom.equalTo(self.view.snp.bottom).offset(0)
             }
         }
+        self.backBtn.snp.makeConstraints { (maker) in
+            maker.left.equalTo(self.view).offset(10)
+            maker.width.equalTo(30)
+            maker.height.equalTo(30)
+            maker.top.equalTo(self.view).offset(sp_statusBarHeight() + 6)
+        }
+        self.albumBtn.snp.makeConstraints { (maker) in
+            maker.width.height.equalTo(30)
+            maker.right.equalTo(self.view).offset(-20)
+            maker.centerY.equalTo(self.backBtn.snp.centerY).offset(0)
+        }
     }
     deinit {
         
     }
 }
-extension SPScanVC {
+extension SPScanVC : UIImagePickerControllerDelegate,UINavigationControllerDelegate{
     /// 设置摄像头
     fileprivate func sp_setupManager(){
         self.manager.sp_init(layer: self.previewLayer.layer as? AVCaptureVideoPreviewLayer , noAuth: { [weak self] in
@@ -101,5 +134,34 @@ extension SPScanVC {
         self.manager.sp_stop()
         self.previewLayer.sp_stopAnimation()
     }
+    /// 点击相册
+    @objc fileprivate func sp_clickAlbum(){
+        SPAuthorizatio.sp_isPhoto { [weak self](auth) in
+            if auth {
+                self?.isPush = true
+                self?.needShow = false
+                let imgPickerVC = UIImagePickerController()
+                imgPickerVC.sourceType = .photoLibrary
+                imgPickerVC.delegate = self
+              
+                self?.present(imgPickerVC, animated: true, completion: nil)
+            }else{
+                let alertController = UIAlertController(title: SPLanguageChange.sp_getString(key: "tips"), message: SPLanguageChange.sp_getString(key: "no_photo_auth"), preferredStyle: UIAlertControllerStyle.alert)
+                alertController.addAction(UIAlertAction(title: SPLanguageChange.sp_getString(key: "go_to"), style: UIAlertActionStyle.default, handler: { (action) in
+                    
+                }))
+                alertController.addAction(UIAlertAction(title: SPLanguageChange.sp_getString(key: "cance"), style: UIAlertActionStyle.cancel, handler: { (action) in
+                    
+                }))
+                self?.present(alertController, animated: true, completion: nil)
+            }
+        }
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        sp_log(message: info)
+    }
 }
+
+
 

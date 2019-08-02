@@ -5,6 +5,7 @@
 //  Created by 黄树鹏 on 2019/7/29.
 //  Copyright © 2019 shupenghuang. All rights reserved.
 //
+// 语音识别
 
 import Foundation
 import SnapKit
@@ -33,6 +34,12 @@ class SPVoiceVC: SPBaseVC {
         label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(sp_clickContent)))
         return label
     }()
+    fileprivate lazy var tipsLabel : UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.white
+        label.textAlignment = .center
+        return label
+    }()
     fileprivate lazy var microphoneBtn : UIButton = {
         let btn = UIButton(type: UIButtonType.custom)
         btn.setImage(UIImage(named: "record"), for: UIControlState.normal)
@@ -43,15 +50,16 @@ class SPVoiceVC: SPBaseVC {
         btn.backgroundColor = SPColorForHexString(hex: SPHexColor.color_eeeeee.rawValue)
         return btn
     }()
-    override var preferredStatusBarStyle: UIStatusBarStyle{
-        return .default
-    }
+    fileprivate lazy var animationView : UIView = {
+        let view = UIView()
+        return view
+    }()
     fileprivate lazy var shapeLayer :  CAShapeLayer = {
         let layer = CAShapeLayer()
         layer.cornerRadius = 30
         layer.masksToBounds = true
-        layer.backgroundColor = SPColorForHexString(hex: SPHexColor.color_2a96fd.rawValue, alpha: 0.2).cgColor
-        layer.frame = CGRect(x: (sp_screenWidth() - 60 ) / 2.0, y: self.microphoneBtn.sp_y(), width: 60, height: 60)
+        layer.backgroundColor = SPColorForHexString(hex: SPHexColor.color_2a96fd.rawValue, alpha: 0.5).cgColor
+        layer.frame = CGRect(x: (sp_screenWidth() - 60) / 2.0, y: (100.0 - 60.0 ) / 2.0, width: 60, height: 60)
         return layer
     }()
     fileprivate lazy var groupAnimation : CAAnimationGroup = {
@@ -65,9 +73,9 @@ class SPVoiceVC: SPBaseVC {
         
         let group = CAAnimationGroup()
         group.animations = [opacityAnimation,scaleAnimation]
-        group.duration = 1.0
+        group.duration = 1.5
         group.repeatCount = HUGE
-        group.autoreverses = true
+//        group.autoreverses = true
         return group
     }()
     
@@ -90,8 +98,10 @@ class SPVoiceVC: SPBaseVC {
     }
     /// 创建UI
     override func sp_setupUI() {
+        self.navigationItem.title = SPLanguageChange.sp_getString(key: "voice")
         self.view.addSubview(self.titleLabel)
         self.view.addSubview(self.contentLabel)
+        self.view.addSubview(self.animationView)
         self.view.addSubview(self.microphoneBtn)
         self.sp_addConstraint()
     }
@@ -122,6 +132,15 @@ class SPVoiceVC: SPBaseVC {
                 maker.bottom.equalTo(self.view.snp.bottom).offset(-20)
             }
         }
+        self.animationView.snp.makeConstraints { (maker) in
+            maker.left.right.equalTo(self.view).offset(0)
+            if #available(iOS 11.0, *) {
+                maker.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(0)
+            } else {
+                maker.bottom.equalTo(self.view.snp.bottom).offset(0)
+            }
+            maker.top.equalTo(self.microphoneBtn.snp.top).offset(-20)
+        }
     }
     deinit {
         
@@ -129,26 +148,17 @@ class SPVoiceVC: SPBaseVC {
 }
 extension SPVoiceVC : SFSpeechRecognizerDelegate {
     fileprivate func sp_checkAuth(){
-        SPAuthorizatio.isRightRecord {   [weak self](auth) in
+        SPAuthorizatio.sp_isRecord {   [weak self](auth) in
             if auth {
                 // 语音转文字权限
-                SFSpeechRecognizer.requestAuthorization {(authStatus) in
-                    switch authStatus {
-                    case .authorized:
-                        sp_log(message: "用户授权")
+                SPAuthorizatio.sp_isSpeech(authorizedBlock: { (success) in
+                    if success {
                         self?.sp_sendSpeech()
                         self?.sp_startRecording()
-                    case .denied:
-                        sp_log(message: "User denied access to speech recognition")
-                        self?.sp_dealNoSpeech()
-                    case .restricted:
-                        sp_log(message: "Speech recognition restricted on this device")
-                         self?.sp_dealNoSpeech()
-                    case .notDetermined:
-                        sp_log(message: "Speech recognition not yet authorized")
-                         self?.sp_dealNoSpeech()
+                    }else{
+                          self?.sp_dealNoSpeech()
                     }
-                }
+                })
             }else {
                 self?.sp_dealNoRecord()
             }
@@ -260,7 +270,7 @@ extension SPVoiceVC : SFSpeechRecognizerDelegate {
         self.shapeLayer.add(self.groupAnimation, forKey: "recordAnimation")
         sp_mainQueue {
             if self.shapeLayer.superlayer == nil {
-                  self.view.layer.insertSublayer(self.shapeLayer, at: 0)
+                  self.animationView.layer.insertSublayer(self.shapeLayer, at: 0)
             }
         }
     }
@@ -270,6 +280,7 @@ extension SPVoiceVC : SFSpeechRecognizerDelegate {
             self.shapeLayer.removeAllAnimations()
         }
     }
+   /// 点击录音
    @objc fileprivate func sp_microphoneTapped(){
         if self.audioEngine.isRunning {
             self.sp_stopRecord()
@@ -279,6 +290,11 @@ extension SPVoiceVC : SFSpeechRecognizerDelegate {
     }
     @objc fileprivate func sp_clickContent(){
         sp_log(message: "点击内容 跳到生成二维码界面 " + sp_getString(string: self.contentLabel.text))
+        if sp_getString(string: self.contentLabel.text).count <= 0  {
+            // 请您说出需要转换的词语
+            return
+        }
+        
         let qrCodeModel = SPQRCodeModel()
         qrCodeModel.content = sp_getString(string: self.contentLabel.text)
         let qrCodeVC = SPQRCodeVC()

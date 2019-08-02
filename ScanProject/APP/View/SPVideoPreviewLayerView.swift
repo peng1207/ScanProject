@@ -40,11 +40,9 @@ class SPVideoPreviewLayerView: UIView {
     
     fileprivate func sp_setupMaskView()->UIView{
         let view = UIView()
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.4)
         return view
     }
-    
-    
     override class var layerClass: Swift.AnyClass {
         return AVCaptureVideoPreviewLayer.self
     }

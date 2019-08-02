@@ -43,14 +43,14 @@ extension UINavigationController{
     
     class func sp_initialize(){
         let navBar = UINavigationBar.appearance()
-//        navBar.setBackgroundImage(UIImage.sp_getImageWithColor(color: sp_getMianColor()), for: UIBarMetrics.default)
+      
+        navBar.setBackgroundImage( UIImage.sp_image(color: SPColorForHexString(hex: SPHexColor.color_000000.rawValue)), for: UIBarMetrics.default)
         //        navBar.barTintColor = SPColorForHexString(hex: SP_HexColor.color_ffffff.rawValue)
         //        navBar.backgroundColor = SPColorForHexString(hex: SP_HexColor.color_b31f3f.rawValue)
         navBar.shadowImage = UIImage()
        
         navBar.titleTextAttributes = [NSAttributedStringKey.font :  sp_fontSize(fontSize: 18),NSAttributedStringKey.foregroundColor : UIColor.white]
-        
-        UIApplication.shared.statusBarStyle = .lightContent
+//        UIApplication.shared.statusBarStyle = .lightContent
     }
     
 }

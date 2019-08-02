@@ -12,3 +12,4 @@ NSPhotoLibraryAddUsageDescription = "Save the picture to the album. If it is not
 NSSpeechRecognitionUsageDescription = "You need to convert your voice to text. If not, you can't convert it.
 ";
 NSMicrophoneUsageDescription = "Use your microphone for voice recording. If not allowed, it cannot be recorded.";
+NSPhotoLibraryUsageDescription = "If you want to get the picture in the album, you can't choose it if you don't allow it.";

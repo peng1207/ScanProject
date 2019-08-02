@@ -15,18 +15,24 @@ typealias SPScanSuccess = (_ data : [String])->Void
 /// 没有权限的回调
 typealias SPNoAuthComplete = ()->Void
 
-class SPScanManager : NSObject,AVCaptureMetadataOutputObjectsDelegate{
+class SPScanManager : NSObject,AVCaptureMetadataOutputObjectsDelegate,AVCapturePhotoCaptureDelegate,AVCaptureVideoDataOutputSampleBufferDelegate{
     let captureSession : AVCaptureSession = AVCaptureSession()
     fileprivate var videoCaptureDev : AVCaptureDevice?
     fileprivate var noAuthBlock : SPNoAuthComplete?
     fileprivate var scanSuccessBlock : SPScanSuccess?
     fileprivate var previewLayer : AVCaptureVideoPreviewLayer?
+    ///  外部传入的数据
+    ///
+    /// - Parameters:
+    ///   - layer: 展示的数据的layer
+    ///   - noAuth: 没有权限的回调
+    ///   - success: 扫描数据成功的回调
     func sp_init(layer : AVCaptureVideoPreviewLayer?,noAuth : SPNoAuthComplete?,success:SPScanSuccess?){
         self.previewLayer = layer
         self.noAuthBlock = noAuth
         self.scanSuccessBlock = success
         // 判断有没相机权限
-        SPAuthorizatio.isRightCamera { [weak self](success) in
+        SPAuthorizatio.sp_isCamera { [weak self](success)in
             if (success){
                 self?.sp_setup()
             }else{
@@ -34,14 +40,14 @@ class SPScanManager : NSObject,AVCaptureMetadataOutputObjectsDelegate{
             }
         }
     }
-    /// 处理没有权限
+    /// 处理没有权限回调
     fileprivate func sp_dealNoAuth(){
         guard let block = self.noAuthBlock else {
             return
         }
         block()
     }
-    /// 处理扫描成功的
+    /// 处理扫描成功的回调
     ///
     /// - Parameter data: 扫描到的数据
     fileprivate func sp_dealSuccess(data :[String]){
@@ -51,7 +57,7 @@ class SPScanManager : NSObject,AVCaptureMetadataOutputObjectsDelegate{
         }
         block(data)
     }
-    
+    /// 初始化输入端和输出端
     fileprivate func sp_setup(){
         guard let videoCaptureDevice = AVCaptureDevice.default(for: AVMediaType.video) else {
             return
@@ -76,22 +82,39 @@ class SPScanManager : NSObject,AVCaptureMetadataOutputObjectsDelegate{
         }else{
             return
         }
-        
-        sp_changeDeviceProperty {
-
-          // 自动白平衡
-//            if videoCaptureDevice.isWhiteBalanceModeSupported(AVCaptureDevice.WhiteBalanceMode.autoWhiteBalance) {
-//                videoCaptureDevice.whiteBalanceMode = .autoWhiteBalance
-//            }
-            //自动对焦
-//            if videoCaptureDevice.isFocusModeSupported(AVCaptureDevice.FocusMode.autoFocus) {
-//                videoCaptureDevice.focusMode = .autoFocus
-//            }
-//         自动曝光
-//            if videoCaptureDevice.isExposureModeSupported(AVCaptureDevice.ExposureMode.autoExpose) {
-//                videoCaptureDevice.exposureMode = .autoExpose
-//            }
+       let videoDataOutput = AVCaptureVideoDataOutput()
+        if captureSession.canAddOutput(videoDataOutput) {
+         
+            videoDataOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "videoQueue"))
+            captureSession.addOutput(videoDataOutput)
         }
+        
+        
+//        let setting = AVCapturePhotoSettings()
+//        setting.flashMode = .on
+//        let photoOutput = AVCapturePhotoOutput()
+//        photoOutput.setPreparedPhotoSettingsArray([setting]) { (finish, error) in
+//
+//        }
+//        if captureSession.canAddOutput(photoOutput) {
+//            captureSession.addOutput(photoOutput)
+//        }
+        
+//        sp_changeDeviceProperty {
+//
+//          // 自动白平衡
+////            if videoCaptureDevice.isWhiteBalanceModeSupported(AVCaptureDevice.WhiteBalanceMode.autoWhiteBalance) {
+////                videoCaptureDevice.whiteBalanceMode = .autoWhiteBalance
+////            }
+//            //自动对焦
+////            if videoCaptureDevice.isFocusModeSupported(AVCaptureDevice.FocusMode.autoFocus) {
+////                videoCaptureDevice.focusMode = .autoFocus
+////            }
+////         自动曝光
+////            if videoCaptureDevice.isExposureModeSupported(AVCaptureDevice.ExposureMode.autoExpose) {
+////                videoCaptureDevice.exposureMode = .autoExpose
+////            }
+//        }
         if let layer = self.previewLayer {
             layer.videoGravity = .resizeAspectFill
             layer.session = self.captureSession
@@ -110,7 +133,7 @@ class SPScanManager : NSObject,AVCaptureMetadataOutputObjectsDelegate{
             }
         }
     }
-    
+    /// 开启扫描
     func sp_start(){
         if !self.captureSession.isRunning {
             sp_sync {
@@ -118,12 +141,14 @@ class SPScanManager : NSObject,AVCaptureMetadataOutputObjectsDelegate{
             }
         }
     }
+    /// 停止扫描
     func sp_stop(){
         if self.captureSession.isRunning{
             self.captureSession.stopRunning()
         }
       
     }
+    /// 扫描到数据的代理
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         if metadataObjects.count > 0  {
             sp_stop()
@@ -139,6 +164,17 @@ class SPScanManager : NSObject,AVCaptureMetadataOutputObjectsDelegate{
             self.sp_dealSuccess(data: list)
         }
         
+    }
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        let brightnessValue = SPSampleBuffer.sp_brightness(sampleBuffer: sampleBuffer)
+        if brightnessValue <= 0  {
+            // 光线太暗
+        }else{
+            
+        }
+    }
+    func photoOutput(_ output: AVCapturePhotoOutput, didCapturePhotoFor resolvedSettings: AVCaptureResolvedPhotoSettings) {
+        sp_log(message: resolvedSettings)
     }
 }
 

@@ -15,11 +15,21 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>1.0.0</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>2019073001</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>使用摄像头扫描二维码或条形码，若不允许，将无法扫描</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>使用您的麦克风语音录制，若不允许，无法录制</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>保存图片到相册中，若不允许，将无法保存</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>想获取相册中图片，若不允许，无法选择</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>需要将您的语音转成文字，若不允许，无法转换</string>
 	<key>UIMainStoryboardFile</key>
 	<string></string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -37,13 +47,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSCameraUsageDescription</key>
-	<string>使用摄像头扫描二维码或条形码，若不允许，将无法扫描</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>保存图片到相册中，若不允许，将无法保存</string>
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>需要将您的语音转成文字，若不允许，无法转换</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>使用您的麦克风语音录制，若不允许，无法录制</string>
 </dict>
 </plist>
