@@ -288,4 +288,41 @@ public extension UIImage {
         
         return self
     }
+    /// 获取jpeg的data
+    ///
+    /// - Returns: data
+    func sp_jpegData()-> Data?{
+        return  self.jpegData(compressionQuality: 1.0)
+    }
+    /// 图片逆时针旋转90
+    ///
+    /// - Returns: 新的图片
+    func sp_roate()->UIImage?{
+        if let cgImg = self.cgImage {
+            var newOrientation  = UIImage.Orientation.up
+            if self.imageOrientation == .up {
+                newOrientation = .left
+            }else if self.imageOrientation == .left {
+                newOrientation = .down
+            }else if self.imageOrientation == .down {
+                newOrientation = .rightMirrored
+            }
+            
+            return UIImage(cgImage: cgImg, scale: self.scale, orientation: newOrientation)
+        }
+        return self
+    }
+    /// 裁剪图片
+    ///
+    /// - Parameter newFrame: 需要裁剪图片在当前图片的位置
+    /// - Returns: 裁剪后的图片
+    func sp_scaled(newFrame : CGRect)-> UIImage{
+        if let cgImg = self.cgImage {
+            if let newCgImg = cgImg.cropping(to: newFrame) {
+                 let newImg = UIImage(cgImage: newCgImg)
+                    return newImg
+            }
+        }
+        return self
+    }
 }

@@ -24,20 +24,21 @@ class SPSelectImgVC: SPBaseVC {
         view.sliderView.valueBlock = { [weak self] (radius) in
             self?.sp_deal(radius: radius)
         }
+        view.radiusBtn.isHidden = self.isBg ? true : false
         return view
     }()
     fileprivate lazy var selectBtn : UIButton = {
-        let btn = UIButton(type: UIButtonType.custom)
-        btn.setImage(UIImage(named: "public_select"), for: UIControlState.normal)
+        let btn = UIButton(type: UIButton.ButtonType.custom)
+        btn.setImage(UIImage(named: "public_select"), for: UIControl.State.normal)
         btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        btn.addTarget(self, action: #selector(sp_clickDone), for: UIControlEvents.touchUpInside)
+        btn.addTarget(self, action: #selector(sp_clickDone), for: UIControl.Event.touchUpInside)
         return btn
     }()
     fileprivate lazy var canceBtn : UIButton = {
-        let btn = UIButton(type: UIButtonType.custom)
+        let btn = UIButton(type: UIButton.ButtonType.custom)
         btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        btn.setImage(UIImage(named: "public_close"), for: UIControlState.normal)
-        btn.addTarget(self, action: #selector(sp_clickBack), for: UIControlEvents.touchUpInside)
+        btn.setImage(UIImage(named: "public_close"), for: UIControl.State.normal)
+        btn.addTarget(self, action: #selector(sp_clickBack), for: UIControl.Event.touchUpInside)
         return btn
     }()
     var isBg : Bool = false
@@ -61,7 +62,7 @@ class SPSelectImgVC: SPBaseVC {
     }
     /// 赋值
     fileprivate func sp_setupData(){
-     
+
         self.qrCodeView.model = self.qrCodeModel
     }
     /// 创建UI
@@ -106,9 +107,15 @@ class SPSelectImgVC: SPBaseVC {
 }
 extension SPSelectImgVC : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+//         sp_log(message: info)
+        picker.dismiss(animated: true) { [weak self] in
+            let img = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+            self?.sp_dealSelect(img: img)
+        }
     }
+    
+ 
     
 }
 extension SPSelectImgVC {
@@ -130,7 +137,6 @@ extension SPSelectImgVC {
     fileprivate func sp_clickCamera(){
         let imgPickerVC = UIImagePickerController()
         imgPickerVC.sourceType = .camera
-        imgPickerVC.allowsEditing = true
         imgPickerVC.delegate = self
         self.present(imgPickerVC, animated: true, completion: nil)
     }
@@ -138,17 +144,28 @@ extension SPSelectImgVC {
     fileprivate func sp_clickPhoto(){
         let imgPickerVC = UIImagePickerController()
         imgPickerVC.sourceType = .photoLibrary
-        imgPickerVC.allowsEditing = true
         imgPickerVC.delegate = self
         self.present(imgPickerVC, animated: true, completion: nil)
+    }
+    /// 裁剪图片
+    ///
+    /// - Parameter img: 图片
+    fileprivate func sp_clip(img : UIImage?){
+        let clipVC = SPClipImgVC()
+        clipVC.originalImg = img
+        clipVC.clipBlock = { [weak self] (img , isCance) in
+            self?.sp_dealClip(img: img, isCance: isCance)
+        }
+        self.present(clipVC, animated: true, completion: nil)
     }
     @objc fileprivate func sp_clickDone(){
         guard let block = self.selectBlock else {
             sp_clickBack()
             return
         }
-        block(self.qrCodeModel)
+        block( SPDataBase.sp_save(model: self.qrCodeModel))
         sp_clickBack()
+       
     }
     /// 处理获取到半径
     ///
@@ -156,6 +173,31 @@ extension SPSelectImgVC {
     fileprivate func sp_deal(radius : Float){
         self.qrCodeModel?.iconRadius = radius
         sp_setupData()
+    }
+    /// 处理选择图片之后的回调
+    ///
+    /// - Parameter img: 图片
+    fileprivate func sp_dealSelect(img : UIImage?){
+          sp_clip(img: img)
+    }
+    /// 处理裁剪回调
+    ///
+    /// - Parameters:
+    ///   - img: 图片
+    ///   - isCance: 是否点击取消
+    fileprivate func sp_dealClip(img : UIImage?,isCance : Bool){
+        if !isCance {
+            if let image = img {
+                if self.isBg {
+                    if let newImg = image.sp_resizeImg(size: CGSize(width: sp_screenWidth(), height: sp_screenWidth())){
+                        self.qrCodeModel?.bgImgData = newImg.sp_jpegData()
+                    }
+                }else{
+                    self.qrCodeModel?.iconData = image.sp_jpegData()
+                }
+                sp_setupData()
+            }
+        }
     }
 }
 

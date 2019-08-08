@@ -1,24 +1,42 @@
 PODS:
+  - HandyJSON (5.0.0)
+  - Realm (3.17.1):
+    - Realm/Headers (= 3.17.1)
+  - Realm/Headers (3.17.1)
+  - RealmSwift (3.17.1):
+    - Realm (= 3.17.1)
   - SnapKit (5.0.0)
-  - SPCommonLibrary/Public (0.0.1.20):
+  - SPCommonLibrary/Clip (0.0.1.21):
     - SnapKit
-  - SPCommonLibrary/Share (0.0.1.20):
+    - SPCommonLibrary/Public
+  - SPCommonLibrary/Public (0.0.1.21):
+    - SnapKit
+  - SPCommonLibrary/Share (0.0.1.21):
     - SnapKit
 
 DEPENDENCIES:
+  - HandyJSON
+  - RealmSwift
+  - SPCommonLibrary/Clip
   - SPCommonLibrary/Public
   - SPCommonLibrary/Share
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - HandyJSON
+    - Realm
+    - RealmSwift
     - SnapKit
   https://github.com/peng1207/huangshupengSpecs.git:
     - SPCommonLibrary
 
 SPEC CHECKSUMS:
+  HandyJSON: 992f2d661716d6a91de82d0056927bc7813b5770
+  Realm: c204f1a890f07dea43b14132a6aad118c054b8f2
+  RealmSwift: 4d3c9233544b9cd08a8913e0872b9038eb99b054
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
-  SPCommonLibrary: b8f26d3a711b74947c325fae82bbfa147789b976
+  SPCommonLibrary: 0593c18eac309ff6f00739f7eb72ae1ef813df0a
 
-PODFILE CHECKSUM: 1258f0a712040bb77f79830944fdb9e230d96809
+PODFILE CHECKSUM: 586b0a18d63ea3be96fe118535f06af8dade9f63
 
 COCOAPODS: 1.7.4

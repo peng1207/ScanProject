@@ -16,51 +16,51 @@ class SPBusinessCardView:  UIView{
         return view
     }()
     /// 姓名
-    fileprivate lazy var nameView : SPIndexContentView = {
+    lazy var nameView : SPIndexContentView = {
         let view = SPIndexContentView()
         view.sp_setData(title: SPLanguageChange.sp_getString(key: "name"))
         return view
     }()
     /// 职位
-    fileprivate lazy var positionView : SPIndexContentView = {
+    lazy var positionView : SPIndexContentView = {
         let view = SPIndexContentView()
         view.sp_setData(title: SPLanguageChange.sp_getString(key: "position"))
         return view;
     }()
     /// 公司
-    fileprivate lazy var companyView : SPIndexContentView = {
+    lazy var companyView : SPIndexContentView = {
         let view = SPIndexContentView()
         view.sp_setData(title: SPLanguageChange.sp_getString(key: "company"))
         return view;
     }()
     /// 移动电话
-    fileprivate lazy var phoneView : SPIndexContentView = {
+    lazy var phoneView : SPIndexContentView = {
         let view = SPIndexContentView()
         view.sp_setData(title: SPLanguageChange.sp_getString(key: "phone"), keyboardType: UIKeyboardType.numberPad)
         return view
     }()
     /// 电话号码
-    fileprivate lazy var telView : SPIndexContentView = {
+    lazy var telView : SPIndexContentView = {
         let view = SPIndexContentView()
-         view.sp_setData(title: SPLanguageChange.sp_getString(key: "tel"), keyboardType: UIKeyboardType.numberPad)
+        view.sp_setData(title: SPLanguageChange.sp_getString(key: "tel"), keyboardType: UIKeyboardType.numberPad)
         return view
     }()
     /// 邮箱
-    fileprivate lazy var emailView : SPIndexContentView = {
+    lazy var emailView : SPIndexContentView = {
         let view = SPIndexContentView()
-         view.sp_setData(title: SPLanguageChange.sp_getString(key: "email"), keyboardType: UIKeyboardType.emailAddress)
+        view.sp_setData(title: SPLanguageChange.sp_getString(key: "email"), keyboardType: UIKeyboardType.emailAddress)
         return view
     }()
     /// 公司地址
-    fileprivate lazy var companyAddressView : SPIndexContentView = {
+    lazy var companyAddressView : SPIndexContentView = {
         let view = SPIndexContentView()
-         view.sp_setData(title: SPLanguageChange.sp_getString(key: "company_address"))
+        view.sp_setData(title: SPLanguageChange.sp_getString(key: "company_address"))
         return view
     }()
     /// 备注
-    fileprivate lazy var remarksView : SPIndexContentView = {
+    lazy var remarksView : SPIndexContentView = {
         let view = SPIndexContentView()
-          view.sp_setData(title: SPLanguageChange.sp_getString(key: "remarks"))
+        view.sp_setData(title: SPLanguageChange.sp_getString(key: "remarks"))
         return view
     }()
     
@@ -142,11 +142,11 @@ class SPIndexContentView:  UIView{
         label.font = sp_fontSize(fontSize: 14)
         return label
     }()
-    fileprivate lazy var textField : UITextField = {
+    lazy var textField : UITextField = {
         let view = UITextField()
         view.textColor = UIColor.white
         view.font = sp_fontSize(fontSize: 14)
-        view.clearButtonMode = UITextFieldViewMode.whileEditing
+        view.clearButtonMode = UITextField.ViewMode.whileEditing
         view.inputAccessoryView = SPKeyboardView.sp_show(done: {
             
         }, cance: {
@@ -172,7 +172,9 @@ class SPIndexContentView:  UIView{
         self.textField.placeholder = placeholder
         self.textField.keyboardType = keyboardType
     }
-    
+    func sp_clearData(){
+        self.textField.text = ""
+    }
     /// 添加UI
     fileprivate func sp_setupUI(){
         self.addSubview(self.titleLabel)
@@ -182,7 +184,7 @@ class SPIndexContentView:  UIView{
     }
     /// 添加约束
     fileprivate func sp_addConstraint(){
-  
+        
         self.titleLabel.snp.makeConstraints { (maker) in
             maker.top.bottom.equalTo(self).offset(0)
             maker.width.equalTo(SPLanguageChange.sp_chinese() ? 80 : 120)

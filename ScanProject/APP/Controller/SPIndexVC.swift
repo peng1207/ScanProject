@@ -11,10 +11,10 @@ import SnapKit
 import SPCommonLibrary
 class SPIndexVC: SPBaseVC {
     fileprivate lazy var scanBtn : UIButton = {
-        let btn = UIButton(type: UIButtonType.custom)
-        btn.setImage(UIImage(named: "public_scan"), for: UIControlState.normal)
+        let btn = UIButton(type: UIButton.ButtonType.custom)
+        btn.setImage(UIImage(named: "public_scan"), for: UIControl.State.normal)
         btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        btn.addTarget(self, action: #selector(sp_clickScan), for: UIControlEvents.touchUpInside)
+        btn.addTarget(self, action: #selector(sp_clickScan), for: UIControl.Event.touchUpInside)
         return btn
     }()
    
@@ -70,9 +70,10 @@ class SPIndexVC: SPBaseVC {
         self.navigationItem.title = SPLanguageChange.sp_getString(key: "index_title")
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.scanBtn)
         self.view.addSubview(self.safeView)
-        self.view.addSubview(self.toolView)
+       
         self.view.addSubview(self.indexView)
         self.view.addSubview(self.collectionView)
+        self.view.addSubview(self.toolView)
         self.sp_addConstraint()
     }
     /// 处理有没数据
@@ -129,12 +130,15 @@ extension SPIndexVC {
         if data.count > 0 {
             let codeModel = SPQRCodeModel()
             codeModel.content = data
+            codeModel.sourceType = K_QRCODE_SOURCETYPE_ADD
+ 
             let qrCodeVC = SPQRCodeVC()
-            qrCodeVC.qrCodeModel = codeModel
+            qrCodeVC.qrCodeModel = SPQRCodeModel.sp_deserialize(from:  sp_getString(string: SPDataBase.sp_save(model:  codeModel)?.sp_toString()))
             self.navigationController?.pushViewController(qrCodeVC, animated: true)
+            self.indexView.sp_clearData()
         }else{
-            let alertController = UIAlertController(title: SPLanguageChange.sp_getString(key: "tips"), message: SPLanguageChange.sp_getString(key: "no_msg_qrCode"), preferredStyle: UIAlertControllerStyle.alert)
-            alertController.addAction(UIAlertAction(title: SPLanguageChange.sp_getString(key: "know"), style: UIAlertActionStyle.default, handler: { (action) in
+            let alertController = UIAlertController(title: SPLanguageChange.sp_getString(key: "tips"), message: SPLanguageChange.sp_getString(key: "no_msg_qrCode"), preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: SPLanguageChange.sp_getString(key: "know"), style: UIAlertAction.Style.default, handler: { (action) in
                 
             }))
             self.present(alertController, animated: true, completion: nil)

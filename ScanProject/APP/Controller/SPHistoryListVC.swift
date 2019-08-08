@@ -13,9 +13,11 @@ import SPCommonLibrary
 class SPHistoryListVC: SPBaseVC {
     fileprivate var tableView : UITableView!
     fileprivate var dataList : [SPQRCodeModel]?
+    var isAdd : Bool = true
     override func viewDidLoad() {
         super.viewDidLoad()
         self.sp_setupUI()
+        sp_setupData()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -29,13 +31,27 @@ class SPHistoryListVC: SPBaseVC {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
     }
+    /// 赋值
+    fileprivate func sp_setupData(){
+        sp_sync { [weak self] in
+            if let isA = self?.isAdd , isA == true {
+                 self?.dataList = SPDataBase.sp_getAddData()
+            }else{
+                self?.dataList = SPDataBase.sp_getScanData()
+            }
+            sp_mainQueue {
+                self?.tableView.reloadData()
+            }
+        }
+    }
     /// 创建UI
     override func sp_setupUI() {
-        self.tableView = UITableView(frame: CGRect.zero, style: UITableViewStyle.plain)
+        self.tableView = UITableView(frame: CGRect.zero, style: UITableView.Style.plain)
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.separatorStyle = .none
         self.tableView.backgroundColor = self.view.backgroundColor
+        self.tableView.rowHeight = 60
         self.view.addSubview(self.tableView)
         self.sp_addConstraint()
     }
@@ -45,7 +61,14 @@ class SPHistoryListVC: SPBaseVC {
     }
     /// 添加约束
     fileprivate func sp_addConstraint(){
-        
+        self.tableView.snp.makeConstraints { (maker) in
+            maker.left.right.top.equalTo(self.view).offset(0)
+            if #available(iOS 11.0, *) {
+                maker.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(0)
+            } else {
+                maker.bottom.equalTo(self.view.snp.bottom).offset(0)
+            }
+        }
     }
     deinit {
         
@@ -61,20 +84,42 @@ extension SPHistoryListVC : UITableViewDelegate,UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let historyListCellID = "historyListCellID"
-        var cell = tableView.dequeueReusableCell(withIdentifier: historyListCellID)
+        var cell : SPHistoryListTableCell? = tableView.dequeueReusableCell(withIdentifier: historyListCellID) as? SPHistoryListTableCell
         if cell == nil {
-            cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: historyListCellID)
+            cell = SPHistoryListTableCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: historyListCellID)
+            cell?.contentView.backgroundColor = self.view.backgroundColor
         }
         if indexPath.row < sp_count(array: self.dataList) {
             let model = self.dataList?[indexPath.row]
-            cell?.textLabel?.text = sp_getString(string: model?.content)
-            cell?.detailTextLabel?.text = sp_getString(string: "")
+            cell?.qrCodeModel = model
         }
         return cell!
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        if  indexPath.row < sp_count(array: self.dataList) {
+            let model = self.dataList?[indexPath.row]
+            let qrCodeVC = SPQRCodeVC()
+            qrCodeVC.qrCodeModel = SPQRCodeModel.sp_init(model: model)
+            self.navigationController?.pushViewController(qrCodeVC, animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
     }
-
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if  editingStyle == .delete {
+            if indexPath.row < sp_count(array: self.dataList) {
+                if let model = self.dataList?[indexPath.row]{
+                    SPDataBase.sp_delete(model: model)
+                    self.dataList?.remove(object: model)
+                    self.tableView.reloadData()
+                }
+            }
+        }
+    }
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
 }
 

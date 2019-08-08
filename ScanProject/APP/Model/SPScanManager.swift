@@ -78,7 +78,8 @@ class SPScanManager : NSObject,AVCaptureMetadataOutputObjectsDelegate,AVCaptureP
         if captureSession.canAddOutput(metadataOutput) {
             captureSession.addOutput(metadataOutput)
             metadataOutput.setMetadataObjectsDelegate(self, queue:  DispatchQueue.main)
-            metadataOutput.metadataObjectTypes = [.qr,.code128,.ean13,.ean8,.code39,.code93]
+//            metadataOutput.metadataObjectTypes = [.qr,.code128,.ean13,.ean8,.code39,.code93]
+              metadataOutput.metadataObjectTypes = [.qr]
         }else{
             return
         }

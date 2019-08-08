@@ -17,7 +17,7 @@ class SPHistoryVC: SPBaseVC {
         view.frame = CGRect(x: 0, y: 0, width: 160, height: 30)
         view.tintColor = UIColor.white
         view.selectedSegmentIndex = 0
-        view.addTarget(self, action: #selector(sp_clickSegment), for: UIControlEvents.valueChanged)
+        view.addTarget(self, action: #selector(sp_clickSegment), for: UIControl.Event.valueChanged)
         return view
     }()
     fileprivate lazy var scrollView : UIScrollView = {
@@ -30,6 +30,7 @@ class SPHistoryVC: SPBaseVC {
     }()
     fileprivate lazy var scanVC : SPHistoryListVC = {
         let vc = SPHistoryListVC()
+        vc.isAdd = false
         return vc
     }()
     
@@ -57,8 +58,8 @@ class SPHistoryVC: SPBaseVC {
         self.view.addSubview(self.safeView)
         self.scrollView.addSubview(self.establishVC.view)
         self.scrollView.addSubview(self.scanVC.view)
-        self.addChildViewController(self.establishVC)
-        self.addChildViewController(self.scanVC)
+        self.addChild(self.establishVC)
+        self.addChild(self.scanVC)
         self.sp_addConstraint()
     }
     /// 处理有没数据

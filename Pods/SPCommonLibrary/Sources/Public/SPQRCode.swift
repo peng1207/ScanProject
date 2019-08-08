@@ -65,6 +65,7 @@ public class SPQRCode {
                         }
                     }
                 }
+                return list
             }
         }
         return nil
@@ -77,12 +78,17 @@ public class SPQRCode {
     ///   - bgColor: 二维码背景颜色
     ///   - image: 二维码图片
     /// - Returns: 转换后的图片
-    public class func sp_color(color1 : UIColor,bgColor : UIColor,image : UIImage) ->UIImage?{
+    public class func sp_color(color1 : UIColor,bgColor : UIColor?,image : UIImage) ->UIImage?{
         if let filter = CIFilter(name: "CIFalseColor"){
             filter.setDefaults()
             filter.setValue(CIImage(image: image), forKey: kCIInputImageKey)
             filter.setValue(CIColor(color: color1), forKey: "inputColor0")
-            filter.setValue(CIColor(color: bgColor), forKey: "inputColor1")
+            if let bg = bgColor {
+                 filter.setValue(CIColor(color: bg), forKey: "inputColor1")
+            }else{
+                 filter.setValue(nil, forKey: "inputColor1")
+            }
+           
             if let outputImg = filter.outputImage {
                 let newImg = UIImage(ciImage: outputImg)
                 return newImg.sp_image(centerImg: nil, iconSize: CGSize.zero)
@@ -95,9 +101,11 @@ public class SPQRCode {
     /// - Parameters:
     ///   - bgImg: 背景图片
     ///   - image: 原始图片
-    /// - Returns: 转换后的图片
-    public class func sp_add(bgImg : UIImage,image:UIImage) -> UIImage?{
-        let cubeMap = createCubeMap(210, 240)
+    ///   - minHueAngle: 去掉背景颜色最低的颜色值HSV
+    ///   - maxHueAngle: 去掉背景颜色最高的颜色值HSV
+    /// - Returns:  转换后的图片
+    public class func sp_add(bgImg : UIImage,image:UIImage,minHueAngle:Float,maxHueAngle:Float) -> UIImage?{
+        let cubeMap = createCubeMap(minHueAngle, maxHueAngle)
         let data = NSData(bytesNoCopy: cubeMap.data, length: Int(cubeMap.length), freeWhenDone: true)
         
         if let colorCubeFilter = CIFilter(name: "CIColorCube") {

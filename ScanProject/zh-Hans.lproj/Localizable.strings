@@ -18,7 +18,7 @@
 "establish" = "创建";
 "scan" = "扫描";
 "name" = "姓名";
-"position" = "职业";
+"position" = "职位";
 "company" = "公司";
 "phone" = "移动电话";
 "tel" = "电话";
@@ -48,3 +48,14 @@
 "camera" = "相机";
 "album" = "相册";
 "radius_size" = "半径大小";
+"share" = "分享";
+"score" = "评分";
+"more" = "更多";
+"security" = "安全性";
+"no_pass" = "不加密";
+"wep" = "WEP";
+"wpa" = "WPA";
+"wpa2" = "WPA2";
+"result" = "结果";
+"done" = "确定";
+"no_data_identified" = "没有识别到数据";

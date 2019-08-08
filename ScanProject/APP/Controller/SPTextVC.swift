@@ -28,17 +28,17 @@ class SPTextVC: SPBaseVC {
         return view
     }()
     fileprivate lazy var selectBtn : UIButton = {
-        let btn = UIButton(type: UIButtonType.custom)
-        btn.setImage(UIImage(named: "public_select"), for: UIControlState.normal)
+        let btn = UIButton(type: UIButton.ButtonType.custom)
+        btn.setImage(UIImage(named: "public_select"), for: UIControl.State.normal)
         btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        btn.addTarget(self, action: #selector(sp_clickDone), for: UIControlEvents.touchUpInside)
+        btn.addTarget(self, action: #selector(sp_clickDone), for: UIControl.Event.touchUpInside)
         return btn
     }()
     fileprivate lazy var canceBtn : UIButton = {
-        let btn = UIButton(type: UIButtonType.custom)
+        let btn = UIButton(type: UIButton.ButtonType.custom)
        btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        btn.setImage(UIImage(named: "public_close"), for: UIControlState.normal)
-        btn.addTarget(self, action: #selector(sp_clickBack), for: UIControlEvents.touchUpInside)
+        btn.setImage(UIImage(named: "public_close"), for: UIControl.State.normal)
+        btn.addTarget(self, action: #selector(sp_clickBack), for: UIControl.Event.touchUpInside)
         return btn
     }()
     var selectBlock : SPQRCodeComplete?
@@ -122,8 +122,9 @@ extension SPTextVC {
             sp_clickBack()
             return
         }
-        block(self.qrCodeModel)
+        block( SPDataBase.sp_save(model: self.qrCodeModel))
         sp_clickBack()
+       
     }
     fileprivate func sp_dealClick(type : SPBtnType){
         switch type {

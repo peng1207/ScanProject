@@ -140,7 +140,7 @@ public func sp_getString(string:Any?) ->  String{
         let s : NSNumber = string as! NSNumber
         return s.stringValue
     }
-    return "\(string)"
+    return "\(string ?? "")"
 }
 
 /// 隐藏键盘
@@ -217,16 +217,77 @@ public func sp_getKeyBoardheight(notification:Notification)->CGFloat{
     let height = keyboardRec.size.height
     return height
 }
-
+/// 打开设置界面
 public func sp_sysOpen() {
-    //打开设置界面
-    
     if let url = URL(string: UIApplication.openSettingsURLString){
         if UIApplication.shared.canOpenURL(url){
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
-        
-        
+    }
+}
+/// 获取app中LaunchImage
+///
+/// - Returns: 图片
+public func sp_appLaunchImg()->UIImage?{
+    if let delgate = UIApplication.shared.delegate {
+        if let window = delgate.window {
+            if let w = window {
+                 let viewSize = w.bounds.size
+                let viewOrientation = "Portrait"
+                var launchImageName = ""
+                if let infoDic = Bundle.main.infoDictionary {
+                    if let imgList = infoDic["UILaunchImages"] as? [[String : Any]]{
+                        for dic in imgList {
+                            
+                            let imgSize = NSCoder.cgSize(for: sp_getString(string: dic["UILaunchImageSize"]))
+                            let orient = sp_getString(string: dic["UILaunchImageOrientation"])
+                            if viewOrientation == orient , __CGSizeEqualToSize(imgSize, viewSize){
+                                launchImageName = sp_getString(string: dic["UILaunchImageName"])
+                            }
+                            
+                            
+                        }
+                        if sp_getString(string: launchImageName).count == 0 {
+                            if let dict = imgList.last {
+                                launchImageName = sp_getString(string: dict["UILaunchImageName"])
+                                
+                            }
+                        }
+                        let bundle = Bundle.main
+                        let resourcePath = sp_getString(string: bundle.resourcePath)
+                        let filePath = resourcePath + "/" + launchImageName
+                        return UIImage(contentsOfFile: filePath)
+                    }
+                    
+                    
+                }
+                
+            }
+        }
+    }
+ 
+    return nil
+    
+}
+/// 获取applogo图片
+///
+/// - Returns: 图片
+public func sp_appLogoImg()->UIImage?{
+    if let infoDic = Bundle.main.infoDictionary {
+        if  let iconsDic = infoDic["CFBundleIcons"] as? [String : Any] {
+            if let iconDic = iconsDic["CFBundlePrimaryIcon"] as? [String : Any]{
+                if let filesList = iconDic["CFBundleIconFiles"] as? [String]{
+                    let bundle = Bundle.main
+                    if  let resourcePath = bundle.resourcePath {
+                        let filePath = resourcePath + "/" + sp_getString(string: filesList.last)
+                        return UIImage(contentsOfFile: filePath)
+                    }
+                }
+            }
+           
+        }
     }
     
+   
+    return nil
 }

@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import SnapKit
+import SPCommonLibrary
 class SPIndexView:  UIView{
     fileprivate lazy var textView : SPIndexTextView = {
         let view = SPIndexTextView()
@@ -43,11 +44,49 @@ class SPIndexView:  UIView{
         if !self.textView.isHidden {
             return self.textView.textView.text
         }else if !self.wifiView.isHidden {
-            
+            return self.wifiView.sp_getData()
         }else if !self.cardView.isHidden {
-            
+            var content = "BEGIN:VCARD \nVERSION:3.0 "
+            if sp_getString(string: self.cardView.nameView.textField.text).count > 0 {
+                content = content + "\nN:\(sp_getString(string: self.cardView.nameView.textField.text))"
+            }
+            if sp_getString(string: self.cardView.emailView.textField.text).count > 0 {
+                content.append("\nEMAIL:\(sp_getString(string: self.cardView.emailView.textField.text))")
+            }
+            if sp_getString(string: self.cardView.phoneView.textField.text).count > 0 {
+                content.append("\nTEL;CELL:\(sp_getString(string: self.cardView.phoneView.textField.text))")
+            }
+            if sp_getString(string: self.cardView.telView.textField.text).count > 0 {
+                content.append("\nTEL:\(sp_getString(string: self.cardView.telView.textField.text))")
+            }
+            if sp_getString(string: self.cardView.companyAddressView.textField.text).count > 0 {
+                content.append("\nADR;TYPE=WORK:\(sp_getString(string: self.cardView.companyAddressView.textField.text))")
+            }
+            if sp_getString(string: self.cardView.companyView.textField.text).count > 0 {
+                content.append("\nORG:\(sp_getString(string: self.cardView.companyView.textField.text))")
+            }
+            if sp_getString(string: self.cardView.positionView.textField.text).count > 0 {
+                content.append("\nTITLE:\(sp_getString(string: self.cardView.positionView.textField.text))")
+            }
+            if sp_getString(string: self.cardView.remarksView.textField.text).count > 0 {
+                content.append("\nNOTE:\(sp_getString(string: self.cardView.remarksView.textField.text))")
+            }
+            content.append("\nEND:VCARD")
+            return content
         }
         return ""
+    }
+    /// 清除数据
+    func sp_clearData(){
+//        self.textView.textView.text = ""
+//        self.cardView.nameView.sp_clearData()
+//        self.cardView.emailView.sp_clearData()
+//        self.cardView.phoneView.sp_clearData()
+//        self.cardView.telView.sp_clearData()
+//        self.cardView.companyAddressView.sp_clearData()
+//        self.cardView.companyView.sp_clearData()
+//        self.cardView.positionView.sp_clearData()
+//        self.cardView.remarksView.sp_clearData()
     }
     /// 处理选择的
     fileprivate func sp_dealSelect(){

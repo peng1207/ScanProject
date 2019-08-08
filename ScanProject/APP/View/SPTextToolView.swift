@@ -11,14 +11,18 @@ import UIKit
 import SnapKit
 class SPTextToolView:  UIView{
     fileprivate lazy var topBtn : UIButton = {
-        let btn = UIButton(type: UIButtonType.custom)
-        btn.addTarget(self, action: #selector(sp_clickTop), for: UIControlEvents.touchUpInside)
+        let btn = UIButton(type: UIButton.ButtonType.custom)
+        btn.setImage(UIImage(named: "public_text_top"), for: UIControl.State.normal)
+        btn.setImage(UIImage(named: "public_text_top"), for: UIControl.State.highlighted)
+        btn.addTarget(self, action: #selector(sp_clickTop), for: UIControl.Event.touchUpInside)
         btn.backgroundColor = UIColor.white
         return btn
     }()
     fileprivate lazy var bottomBtn : UIButton = {
-        let btn = UIButton(type: UIButtonType.custom)
-        btn.addTarget(self, action: #selector(sp_clickBottom), for: UIControlEvents.touchUpInside)
+        let btn = UIButton(type: UIButton.ButtonType.custom)
+        btn.setImage(UIImage(named: "public_text_bottom"), for: UIControl.State.normal)
+        btn.setImage(UIImage(named: "public_text_bottom"), for: UIControl.State.highlighted)
+        btn.addTarget(self, action: #selector(sp_clickBottom), for: UIControl.Event.touchUpInside)
         btn.backgroundColor = UIColor.white
         return btn
     }()
@@ -42,13 +46,13 @@ class SPTextToolView:  UIView{
     fileprivate func sp_addConstraint(){
         self.topBtn.snp.makeConstraints { (maker) in
             maker.left.equalTo(self).offset(10)
-            maker.top.equalTo(self).offset(5)
-            maker.width.equalTo(60)
-            maker.height.equalTo(self.topBtn.snp.width).multipliedBy(1.5)
-            maker.bottom.equalTo(self.snp.bottom).offset(-5)
+            maker.top.equalTo(self).offset(10)
+            maker.width.equalTo(40)
+            maker.height.equalTo(self.topBtn.snp.width).offset(0)
+            maker.bottom.equalTo(self.snp.bottom).offset(-10)
         }
         self.bottomBtn.snp.makeConstraints { (maker) in
-            maker.left.equalTo(self.topBtn.snp.right).offset(5)
+            maker.left.equalTo(self.topBtn.snp.right).offset(10)
             maker.top.width.height.equalTo(self.topBtn).offset(0)
         }
     }

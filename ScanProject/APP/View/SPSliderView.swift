@@ -22,9 +22,9 @@ class SPSliderView:  UIView{
         label.font = sp_fontSize(fontSize: 16)
         return label
     }()
-    fileprivate lazy var slider : UISlider = {
+    lazy var slider : UISlider = {
         let view = UISlider()
-        view.addTarget(self, action: #selector(sp_sliderChange), for: UIControlEvents.valueChanged)
+        view.addTarget(self, action: #selector(sp_sliderChange), for: UIControl.Event.valueChanged)
         view.minimumValue = 15
         view.maximumValue = 40
         return view

@@ -55,5 +55,9 @@ enum SPBtnType {
     case fontTop
     /// 字体在二维码下面
     case fontBottom
+    /// 分享
+    case share
+    /// 评分
+    case score
 }
 

@@ -48,3 +48,14 @@
 "camera" = "Camera";
 "album" = "Album";
 "radius_size" = "Radius size";
+"share" = "Share";
+"score" = "Score";
+"more" = "More";
+"security" = "Security";
+"no_pass" = "No Pass";
+"wep" = "WEP";
+"wpa" = "WPA";
+"wpa2" = "WPA2";
+"result" = "Result";
+"done" = "Done";
+"no_data_identified" = "No data identified";

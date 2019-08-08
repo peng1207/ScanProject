@@ -12,22 +12,23 @@ import SnapKit
 import SPCommonLibrary
 class SPIndexToolView:  UIView{
     fileprivate lazy var historyBtn : UIButton = {
-        let btn = UIButton(type: UIButtonType.custom)
-        btn.setImage(UIImage(named: "public_history"), for: UIControlState.normal)
-        btn.addTarget(self, action: #selector(sp_clickHistory), for: UIControlEvents.touchUpInside)
+        let btn = UIButton(type: UIButton.ButtonType.custom)
+        btn.setImage(UIImage(named: "public_history"), for: UIControl.State.normal)
+        btn.addTarget(self, action: #selector(sp_clickHistory), for: UIControl.Event.touchUpInside)
         return btn
     }()
     fileprivate lazy var moreBtn : UIButton = {
-        let btn = UIButton(type: UIButtonType.custom)
-        btn.setImage(UIImage(named: "public_more"), for: UIControlState.normal)
-        btn.addTarget(self, action: #selector(sp_clickMore), for: UIControlEvents.touchUpInside)
+        let btn = UIButton(type: UIButton.ButtonType.custom)
+        btn.setImage(UIImage(named: "public_more"), for: UIControl.State.normal)
+        btn.addTarget(self, action: #selector(sp_clickMore), for: UIControl.Event.touchUpInside)
         return btn
     }()
     fileprivate lazy var createBtn : UIButton = {
-        let btn = UIButton(type: UIButtonType.custom)
-        btn.setImage(UIImage(named: "public_create"), for: UIControlState.normal)
-        btn.addTarget(self, action: #selector(sp_clickCreate), for: UIControlEvents.touchUpInside)
-//        btn.sp_cornerRadius(radius: 29.5)
+        let btn = UIButton(type: UIButton.ButtonType.custom)
+        btn.setImage(UIImage(named: "public_create"), for: UIControl.State.normal)
+        btn.addTarget(self, action: #selector(sp_clickCreate), for: UIControl.Event.touchUpInside)
+        btn.sp_cornerRadius(radius: 32)
+        btn.backgroundColor = SPColorForHexString(hex: SPHexColor.color_2a96fd.rawValue)
         return btn
     }()
     var clickBlock : SPBtnTypeComplete?
@@ -60,9 +61,9 @@ class SPIndexToolView:  UIView{
         }
         self.createBtn.snp.makeConstraints { (maker) in
             maker.centerX.equalTo(self.snp.centerX).offset(0)
-            maker.width.equalTo(30)
-            maker.height.equalTo(30)
-            maker.centerY.equalTo(self.snp.centerY).offset(0)
+            maker.top.equalTo(self.snp.top).offset(-15)
+            maker.bottom.equalTo(self.snp.bottom).offset(0)
+            maker.width.equalTo(self.createBtn.snp.height).offset(0)
         }
     }
     deinit {

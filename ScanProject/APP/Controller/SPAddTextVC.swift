@@ -21,15 +21,15 @@ class SPAddTextVC: SPBaseVC {
         return view
     }()
     fileprivate lazy var canceBtn : UIButton = {
-        let btn = UIButton(type: UIButtonType.custom)
-        btn.setImage(UIImage(named: "public_close"), for: UIControlState.normal)
-        btn.addTarget(self, action: #selector(sp_clickCance), for: UIControlEvents.touchUpInside)
+        let btn = UIButton(type: UIButton.ButtonType.custom)
+        btn.setImage(UIImage(named: "public_close"), for: UIControl.State.normal)
+        btn.addTarget(self, action: #selector(sp_clickCance), for: UIControl.Event.touchUpInside)
         return btn
     }()
     fileprivate lazy var doneBtn : UIButton = {
-        let btn = UIButton(type: UIButtonType.custom)
-        btn.setImage(UIImage(named: "public_select"), for: UIControlState.normal)
-        btn.addTarget(self, action: #selector(sp_clickDone), for: UIControlEvents.touchUpInside)
+        let btn = UIButton(type: UIButton.ButtonType.custom)
+        btn.setImage(UIImage(named: "public_select"), for: UIControl.State.normal)
+        btn.addTarget(self, action: #selector(sp_clickDone), for: UIControl.Event.touchUpInside)
         return btn
     }()
     fileprivate lazy var toolView : SPAddTextToolView = {
@@ -120,6 +120,7 @@ class SPAddTextVC: SPBaseVC {
         self.scrollView.addSubview(self.fontNameView)
         self.scrollView.addSubview(self.fontSizeView)
         self.sp_addConstraint()
+        sp_updateTool(height: 200)
     }
     /// 处理有没数据
     override func sp_dealNoData(){
@@ -143,6 +144,7 @@ class SPAddTextVC: SPBaseVC {
             maker.top.equalTo(self.canceBtn.snp.bottom).offset(0)
             maker.bottom.equalTo(self.toolView.snp.top).offset(-10)
         }
+        
         self.scrollView.snp.makeConstraints { (maker) in
             maker.left.right.equalTo(self.view).offset(0)
             maker.top.equalTo(self.toolView.snp.bottom).offset(0)
@@ -179,7 +181,8 @@ class SPAddTextVC: SPBaseVC {
 }
 extension SPAddTextVC {
     fileprivate func sp_addNotification(){
-        NotificationCenter.default.addObserver(self, selector: #selector(sp_keyboardShow(obj:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(sp_keyboardShow(obj:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
     }
     @objc fileprivate func sp_keyboardShow(obj : Notification){
        let height = sp_getKeyBoardheight(notification: obj)
@@ -199,6 +202,7 @@ extension SPAddTextVC {
             return
         }
         self.qrCodeModel?.text = sp_getString(string: self.textView.text)
+      
         block(self.qrCodeModel)
     }
     /// 处理选择的tool

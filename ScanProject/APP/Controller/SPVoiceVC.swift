@@ -41,12 +41,12 @@ class SPVoiceVC: SPBaseVC {
         return label
     }()
     fileprivate lazy var microphoneBtn : UIButton = {
-        let btn = UIButton(type: UIButtonType.custom)
-        btn.setImage(UIImage(named: "record"), for: UIControlState.normal)
-        btn.setImage(UIImage(named: "record"), for: UIControlState.highlighted)
+        let btn = UIButton(type: UIButton.ButtonType.custom)
+        btn.setImage(UIImage(named: "record"), for: UIControl.State.normal)
+        btn.setImage(UIImage(named: "record"), for: UIControl.State.highlighted)
         btn.sp_cornerRadius(radius: 30)
         btn.sp_border(color: SPColorForHexString(hex: SPHexColor.color_2a96fd.rawValue), width: 1)
-        btn.addTarget(self, action: #selector(sp_microphoneTapped), for: UIControlEvents.touchUpInside)
+        btn.addTarget(self, action: #selector(sp_microphoneTapped), for: UIControl.Event.touchUpInside)
         btn.backgroundColor = SPColorForHexString(hex: SPHexColor.color_eeeeee.rawValue)
         return btn
     }()
@@ -166,12 +166,12 @@ extension SPVoiceVC : SFSpeechRecognizerDelegate {
     }
     /// 处理没有麦克风的权限
     fileprivate func sp_dealNoRecord(){
-        let alertController = UIAlertController(title: SPLanguageChange.sp_getString(key: "tips"), message: SPLanguageChange.sp_getString(key: "no_record_auth"), preferredStyle: UIAlertControllerStyle.alert)
-        alertController.addAction(UIAlertAction(title: SPLanguageChange.sp_getString(key: "go_to"), style: UIAlertActionStyle.default
+        let alertController = UIAlertController(title: SPLanguageChange.sp_getString(key: "tips"), message: SPLanguageChange.sp_getString(key: "no_record_auth"), preferredStyle: UIAlertController.Style.alert)
+        alertController.addAction(UIAlertAction(title: SPLanguageChange.sp_getString(key: "go_to"), style: UIAlertAction.Style.default
             , handler: { (action) in
                 sp_sysOpen()
         }))
-        alertController.addAction(UIAlertAction(title: SPLanguageChange.sp_getString(key: "cance"), style: UIAlertActionStyle.cancel, handler: { (action) in
+        alertController.addAction(UIAlertAction(title: SPLanguageChange.sp_getString(key: "cance"), style: UIAlertAction.Style.cancel, handler: { (action) in
             
         }))
         sp_mainQueue {
@@ -180,12 +180,12 @@ extension SPVoiceVC : SFSpeechRecognizerDelegate {
     }
     /// 处理没有语音转换权限
     fileprivate func sp_dealNoSpeech(){
-        let alertController = UIAlertController(title: SPLanguageChange.sp_getString(key: "tips"), message: SPLanguageChange.sp_getString(key: "no_speech_auth"), preferredStyle: UIAlertControllerStyle.alert)
-        alertController.addAction(UIAlertAction(title: SPLanguageChange.sp_getString(key: "go_to"), style: UIAlertActionStyle.default
+        let alertController = UIAlertController(title: SPLanguageChange.sp_getString(key: "tips"), message: SPLanguageChange.sp_getString(key: "no_speech_auth"), preferredStyle: UIAlertController.Style.alert)
+        alertController.addAction(UIAlertAction(title: SPLanguageChange.sp_getString(key: "go_to"), style: UIAlertAction.Style.default
             , handler: { (action) in
                 sp_sysOpen()
         }))
-        alertController.addAction(UIAlertAction(title: SPLanguageChange.sp_getString(key: "cance"), style: UIAlertActionStyle.cancel, handler: { (action) in
+        alertController.addAction(UIAlertAction(title: SPLanguageChange.sp_getString(key: "cance"), style: UIAlertAction.Style.cancel, handler: { (action) in
             
         }))
         sp_mainQueue {
@@ -207,9 +207,9 @@ extension SPVoiceVC : SFSpeechRecognizerDelegate {
        
         let audioSession = AVAudioSession.sharedInstance()
         do {
-            try audioSession.setCategory(AVAudioSessionCategoryRecord)
-            try audioSession.setMode(AVAudioSessionModeMeasurement)
-            try audioSession.setActive(true, with: .notifyOthersOnDeactivation)
+            try audioSession.setCategory(AVAudioSession.Category.record)
+            try audioSession.setMode(AVAudioSession.Mode.measurement)
+            try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
         }catch {
             sp_log(message: "audioSession properties weren't set because of an error.")
         }
@@ -297,9 +297,11 @@ extension SPVoiceVC : SFSpeechRecognizerDelegate {
         
         let qrCodeModel = SPQRCodeModel()
         qrCodeModel.content = sp_getString(string: self.contentLabel.text)
+        qrCodeModel.sourceType = K_QRCODE_SOURCETYPE_ADD
         let qrCodeVC = SPQRCodeVC()
-        qrCodeVC.qrCodeModel = qrCodeModel
-        self.present(qrCodeVC, animated: true, completion: nil)
+        qrCodeVC.qrCodeModel = SPQRCodeModel.sp_deserialize(from:  SPDataBase.sp_save(model: qrCodeModel)?.sp_toJson())
+        self.navigationController?.pushViewController(qrCodeVC, animated: true)
+        
     }
 }
 

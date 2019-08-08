@@ -14,15 +14,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.backgroundColor = UIColor.white
         let mainVC = SPIndexVC()
         SPBaseNavVC.sp_initialize()
+        SPDataBase.sp_configRealm()
         let mainNav = SPBaseNavVC(rootViewController: mainVC)
         self.window?.rootViewController = mainNav
         self.window?.makeKeyAndVisible()
-       
+      
+        
+        
 //        let properties = CIFilter.filterNames(inCategory: kCICategoryBuiltIn)
 //        for fileterName : String in properties {
 //            let filter = CIFilter(name: fileterName)
@@ -30,8 +33,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            sp_log(message: "滤镜名称----\(fileterName)")
 //            sp_log(message: filter?.attributes)
 //        }
-       sp_log(message:  UIFont.familyNames)
-//         Override point for customization after application launch.
+//       sp_log(message:  UIFont.familyNames)
+//        let fys = UIFont.familyNames
+//        for fy in fys {
+//            let fts = UIFont.fontNames(forFamilyName: fy)
+//            for ft in fts {
+//                print(ft)
+//            }
+//        }
+        
+        //         Override point for customization after application launch.
         return true
     }
 

@@ -12,19 +12,19 @@ import SnapKit
 import SPCommonLibrary
 class SPKeyboardView:  UIView{
     fileprivate lazy var doneBtn : UIButton = {
-        let btn = UIButton(type: UIButtonType.custom)
-        btn.setTitle(SPLanguageChange.sp_getString(key: "finish"), for: UIControlState.normal)
-        btn.setTitleColor(SPColorForHexString(hex: SPHexColor.color_2a96fd.rawValue), for: UIControlState.normal)
+        let btn = UIButton(type: UIButton.ButtonType.custom)
+        btn.setTitle(SPLanguageChange.sp_getString(key: "finish"), for: UIControl.State.normal)
+        btn.setTitleColor(SPColorForHexString(hex: SPHexColor.color_2a96fd.rawValue), for: UIControl.State.normal)
         btn.titleLabel?.font = sp_fontSize(fontSize: 16)
-        btn.addTarget(self, action: #selector(sp_clickDone), for: UIControlEvents.touchUpInside)
+        btn.addTarget(self, action: #selector(sp_clickDone), for: UIControl.Event.touchUpInside)
         return btn
     }()
     fileprivate lazy var canceBtn : UIButton = {
-        let btn = UIButton(type: UIButtonType.custom)
-        btn.setTitle(SPLanguageChange.sp_getString(key: "cance"), for: UIControlState.normal)
-        btn.setTitleColor(SPColorForHexString(hex: SPHexColor.color_2a96fd.rawValue), for: UIControlState.normal)
+        let btn = UIButton(type: UIButton.ButtonType.custom)
+        btn.setTitle(SPLanguageChange.sp_getString(key: "cance"), for: UIControl.State.normal)
+        btn.setTitleColor(SPColorForHexString(hex: SPHexColor.color_2a96fd.rawValue), for: UIControl.State.normal)
         btn.titleLabel?.font = sp_fontSize(fontSize: 16)
-        btn.addTarget(self, action: #selector(sp_clickCance), for: UIControlEvents.touchUpInside)
+        btn.addTarget(self, action: #selector(sp_clickCance), for: UIControl.Event.touchUpInside)
         return btn
     }()
     fileprivate var doneBlock : (()->Void)?

@@ -33,38 +33,38 @@ class SPSelectColorVC: SPBaseVC {
         return view
     }()
     fileprivate lazy var bgColorBtn : UIButton = {
-        let btn = UIButton(type: UIButtonType.custom)
-        btn.setTitle(SPLanguageChange.sp_getString(key: "background_color"), for: UIControlState.normal)
-        btn.setTitleColor(UIColor.white, for: UIControlState.normal)
-        btn.setTitleColor(SPColorForHexString(hex: SPHexColor.color_2a96fd.rawValue), for: UIControlState.selected)
+        let btn = UIButton(type: UIButton.ButtonType.custom)
+        btn.setTitle(SPLanguageChange.sp_getString(key: "background_color"), for: UIControl.State.normal)
+        btn.setTitleColor(UIColor.white, for: UIControl.State.normal)
+        btn.setTitleColor(SPColorForHexString(hex: SPHexColor.color_2a96fd.rawValue), for: UIControl.State.selected)
         btn.titleLabel?.font = sp_fontSize(fontSize: 16)
         btn.backgroundColor = SPColorForHexString(hex: SPHexColor.color_000000.rawValue)
-        btn.addTarget(self, action: #selector(sp_clickBg), for: UIControlEvents.touchUpInside)
+        btn.addTarget(self, action: #selector(sp_clickBg), for: UIControl.Event.touchUpInside)
         return btn
     }()
     fileprivate lazy var colorCodeBtn : UIButton = {
-        let btn = UIButton(type: UIButtonType.custom)
-        btn.setTitle(SPLanguageChange.sp_getString(key: "color_code"), for: UIControlState.normal)
-        btn.setTitleColor(UIColor.white, for: UIControlState.normal)
-        btn.setTitleColor(SPColorForHexString(hex: SPHexColor.color_2a96fd.rawValue), for: UIControlState.selected)
+        let btn = UIButton(type: UIButton.ButtonType.custom)
+        btn.setTitle(SPLanguageChange.sp_getString(key: "color_code"), for: UIControl.State.normal)
+        btn.setTitleColor(UIColor.white, for: UIControl.State.normal)
+        btn.setTitleColor(SPColorForHexString(hex: SPHexColor.color_2a96fd.rawValue), for: UIControl.State.selected)
         btn.titleLabel?.font = sp_fontSize(fontSize: 16)
         btn.isSelected = true
         btn.backgroundColor = SPColorForHexString(hex: SPHexColor.color_000000.rawValue)
-        btn.addTarget(self, action: #selector(sp_clickColorCode), for: UIControlEvents.touchUpInside)
+        btn.addTarget(self, action: #selector(sp_clickColorCode), for: UIControl.Event.touchUpInside)
         return btn
     }()
     fileprivate lazy var selectBtn : UIButton = {
-        let btn = UIButton(type: UIButtonType.custom)
-        btn.setImage(UIImage(named: "public_select"), for: UIControlState.selected)
+        let btn = UIButton(type: UIButton.ButtonType.custom)
+        btn.setImage(UIImage(named: "public_select"), for: UIControl.State.normal)
         btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        btn.addTarget(self, action: #selector(sp_clickDone), for: UIControlEvents.touchUpInside)
+        btn.addTarget(self, action: #selector(sp_clickDone), for: UIControl.Event.touchUpInside)
         return btn
     }()
     fileprivate lazy var canceBtn : UIButton = {
-        let btn = UIButton(type: UIButtonType.custom)
+        let btn = UIButton(type: UIButton.ButtonType.custom)
         btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        btn.setImage(UIImage(named: "public_close"), for: UIControlState.normal)
-        btn.addTarget(self, action: #selector(sp_clickBack), for: UIControlEvents.touchUpInside)
+        btn.setImage(UIImage(named: "public_close"), for: UIControl.State.normal)
+        btn.addTarget(self, action: #selector(sp_clickBack), for: UIControl.Event.touchUpInside)
         return btn
     }()
     var selectBlock : SPQRCodeComplete?
@@ -166,7 +166,8 @@ extension SPSelectColorVC {
             sp_clickBack()
             return
         }
-        block(self.qrCodeModel)
+        block(SPDataBase.sp_save(model: self.qrCodeModel))
         sp_clickBack()
+      
     }
 }

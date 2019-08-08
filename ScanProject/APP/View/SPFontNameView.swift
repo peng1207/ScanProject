@@ -14,11 +14,15 @@ class SPFontNameView:  UIView{
     
     fileprivate lazy var dataArray : [String] = {
         var list = [String]()
-        list.append("Heiti SC")
-        list.append("Arial")
-        list.append("DIN Alternate")
-        list.append("Arial Rounded MT Bold")
-        list.append("Bodoni 72")
+        list.append("Thonburi-Bold")
+        list.append("GillSans-Bold")
+        list.append("Arial-BoldMT")
+        list.append("HoeflerText-Regular")
+        list.append("Helvetica-Light")
+        list.append("Menlo-Regular")
+        list.append("Charter-Bold")
+        list.append("AppleSDGothicNeo-Regular")
+       
         return list
     }()
     fileprivate var tableView : UITableView!
@@ -37,7 +41,7 @@ class SPFontNameView:  UIView{
     }
     /// 添加UI
     fileprivate func sp_setupUI(){
-        self.tableView = UITableView(frame: CGRect.zero, style: UITableViewStyle.plain)
+        self.tableView = UITableView(frame: CGRect.zero, style: UITableView.Style.plain)
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.backgroundColor = SPColorForHexString(hex: SPHexColor.color_000000.rawValue)
@@ -71,7 +75,7 @@ extension SPFontNameView : UITableViewDelegate,UITableViewDataSource {
         let cellID = "fontNameCellID"
         var cell = tableView.dequeueReusableCell(withIdentifier: cellID)
         if  cell == nil {
-            cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: cellID)
+            cell = UITableViewCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: cellID)
             cell?.selectionStyle = .none
             cell?.contentView.backgroundColor = self.tableView.backgroundColor
             cell?.textLabel?.text = SPLanguageChange.sp_getString(key: "index_title")

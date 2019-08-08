@@ -19,15 +19,15 @@ class SPScanVC: SPBaseVC {
         return SPVideoPreviewLayerView()
     }()
     fileprivate lazy var backBtn : UIButton = {
-        let btn = UIButton(type: UIButtonType.custom)
-        btn.setImage(UIImage(named: "public_back"), for: UIControlState.normal)
-        btn.addTarget(self, action: #selector(sp_clickBack), for: UIControlEvents.touchUpInside)
+        let btn = UIButton(type: UIButton.ButtonType.custom)
+        btn.setImage(UIImage(named: "public_back"), for: UIControl.State.normal)
+        btn.addTarget(self, action: #selector(sp_clickBack), for: UIControl.Event.touchUpInside)
         return btn
     }()
     fileprivate lazy var albumBtn : UIButton = {
-        let btn = UIButton(type: UIButtonType.custom)
-        btn.setImage(UIImage(named: "public_album"), for: UIControlState.normal)
-        btn.addTarget(self, action: #selector(sp_clickAlbum), for: UIControlEvents.touchUpInside)
+        let btn = UIButton(type: UIButton.ButtonType.custom)
+        btn.setImage(UIImage(named: "public_album"), for: UIControl.State.normal)
+        btn.addTarget(self, action: #selector(sp_clickAlbum), for: UIControl.Event.touchUpInside)
         return btn
     }()
     fileprivate var isPush : Bool = false
@@ -107,11 +107,11 @@ extension SPScanVC : UIImagePickerControllerDelegate,UINavigationControllerDeleg
     }
     /// 处理没有权限
     fileprivate func sp_dealNoAuth(){
-        let alertController = UIAlertController(title: SPLanguageChange.sp_getString(key: "tips"), message: SPLanguageChange.sp_getString(key: "no_camera_auth") , preferredStyle: UIAlertControllerStyle.alert)
-        alertController.addAction(UIAlertAction(title: SPLanguageChange.sp_getString(key: "go_to"), style: UIAlertActionStyle.default, handler: { (action) in
+        let alertController = UIAlertController(title: SPLanguageChange.sp_getString(key: "tips"), message: SPLanguageChange.sp_getString(key: "no_camera_auth") , preferredStyle: UIAlertController.Style.alert)
+        alertController.addAction(UIAlertAction(title: SPLanguageChange.sp_getString(key: "go_to"), style: UIAlertAction.Style.default, handler: { (action) in
             sp_sysOpen()
         }))
-        alertController.addAction(UIAlertAction(title: SPLanguageChange.sp_getString(key: "know"), style: UIAlertActionStyle.cancel, handler: { (action) in
+        alertController.addAction(UIAlertAction(title: SPLanguageChange.sp_getString(key: "know"), style: UIAlertAction.Style.cancel, handler: { (action) in
             
         }))
         sp_mainQueue { [weak self] in
@@ -122,7 +122,13 @@ extension SPScanVC : UIImagePickerControllerDelegate,UINavigationControllerDeleg
     ///
     /// - Parameter data: 扫描得到的数据
     fileprivate func sp_dealScanData(data : [String]){
-        
+        sp_log(message: data)
+       let qrCodeModel = SPQRCodeModel()
+        qrCodeModel.content =  data.joined(separator: " ")
+        qrCodeModel.sourceType = K_QRCODE_SOURCETYPE_SCAN
+        let resultVC = SPScanResultVC()
+        resultVC.codeModel = SPDataBase.sp_save(model: qrCodeModel)
+        self.navigationController?.pushViewController(resultVC, animated: true)
     }
     /// 开启
     func sp_start(){
@@ -146,21 +152,37 @@ extension SPScanVC : UIImagePickerControllerDelegate,UINavigationControllerDeleg
               
                 self?.present(imgPickerVC, animated: true, completion: nil)
             }else{
-                let alertController = UIAlertController(title: SPLanguageChange.sp_getString(key: "tips"), message: SPLanguageChange.sp_getString(key: "no_photo_auth"), preferredStyle: UIAlertControllerStyle.alert)
-                alertController.addAction(UIAlertAction(title: SPLanguageChange.sp_getString(key: "go_to"), style: UIAlertActionStyle.default, handler: { (action) in
+                let alertController = UIAlertController(title: SPLanguageChange.sp_getString(key: "tips"), message: SPLanguageChange.sp_getString(key: "no_photo_auth"), preferredStyle: UIAlertController.Style.alert)
+                alertController.addAction(UIAlertAction(title: SPLanguageChange.sp_getString(key: "go_to"), style: UIAlertAction.Style.default, handler: { (action) in
                     
                 }))
-                alertController.addAction(UIAlertAction(title: SPLanguageChange.sp_getString(key: "cance"), style: UIAlertActionStyle.cancel, handler: { (action) in
+                alertController.addAction(UIAlertAction(title: SPLanguageChange.sp_getString(key: "cance"), style: UIAlertAction.Style.cancel, handler: { (action) in
                     
                 }))
                 self?.present(alertController, animated: true, completion: nil)
             }
         }
     }
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true, completion: nil)
-        sp_log(message: info)
+   
+          let img = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        if  let resultList = SPQRCode.sp_recognizeQRCode(codeImg: img) {
+            sp_dealScanData(data: resultList)
+        }else {
+            // 没有识别到数据
+            sp_stop()
+            let alertController = UIAlertController(title: SPLanguageChange.sp_getString(key: "tips"), message: SPLanguageChange.sp_getString(key: "no_data_identified"), preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: SPLanguageChange.sp_getString(key: "done"), style: UIAlertAction.Style.default, handler: { [weak self](action) in
+                self?.sp_start()
+            }))
+            self.present(alertController, animated: true, completion: nil)
+            
+        }
+        
+        
     }
+  
 }
 
 

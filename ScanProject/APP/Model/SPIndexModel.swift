@@ -43,7 +43,7 @@ class SPIndexModel : SPBaseModel{
             model.img = UIImage(named: "public_baseMap")
         case .icon:
             model.title = SPLanguageChange.sp_getString(key: "icon")
-            model.img = UIImage(named: "public_baseMap")
+            model.img = UIImage(named: "public_embed")
         case .fontSize :
             model.title = SPLanguageChange.sp_getString(key: "font_size")
             model.img = UIImage(named: "public_fontsize")
@@ -58,6 +58,12 @@ class SPIndexModel : SPBaseModel{
         case .camera:
             model.title = SPLanguageChange.sp_getString(key: "camera")
             model.img = UIImage(named: "public_camera")
+        case .share:
+            model.title = SPLanguageChange.sp_getString(key: "share")
+            model.img = UIImage(named: "public_share")
+        case .score:
+            model.title = SPLanguageChange.sp_getString(key: "score")
+            model.img = UIImage(named: "public_score")
         default:
             sp_log(message: "没有其他")
         }

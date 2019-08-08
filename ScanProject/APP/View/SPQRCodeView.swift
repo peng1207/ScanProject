@@ -34,7 +34,7 @@ class SPQRCodeView:  UIView{
     var isShow : Bool = false
     var model : SPQRCodeModel?{
         didSet{
-           self.sp_setupData()
+            self.sp_setupData()
         }
     }
     var clickBlock : SPClickComplete?
@@ -50,62 +50,60 @@ class SPQRCodeView:  UIView{
         guard let codeModel = self.model else {
             return
         }
-        self.iconImgView.isHidden = true
-        if let codeData = codeModel.iconData {
-            if let img = UIImage(data: codeData){
-                self.iconImgView.image = img
-                self.iconImgView.isHidden = true
-                self.iconImgView.sp_cornerRadius(radius:CGFloat( codeModel.iconRadius / 2.0))
+        
+        sp_sync { [weak self] in
+            if let codeData = codeModel.iconData {
+                if let img = UIImage(data: codeData){
+                    sp_mainQueue {
+                        if img.size.width != img.size.height {
+                            if img.size.width > img.size.height{
+                                self?.iconImgView.snp.updateConstraints({ (maker) in
+                                    maker.width.equalTo(50)
+                                    maker.height.equalTo(50.0 * img.size.height / img.size.width)
+                                })
+                            }else{
+                                self?.iconImgView.snp.updateConstraints({ (maker) in
+                                    maker.height.equalTo(50)
+                                    maker.width.equalTo(50.0 * img.size.width / img.size.height)
+                                })
+                            }
+                        }else{
+                            self?.iconImgView.snp.updateConstraints({ (maker) in
+                                maker.width.equalTo(50)
+                                maker.height.equalTo(50)
+                            })
+                        }
+                        self?.iconImgView.image = img
+                        self?.iconImgView.isHidden = false
+                        self?.iconImgView.sp_cornerRadius(radius:CGFloat( codeModel.iconRadius / 4.0))
+                    }
+                }else{
+                    sp_mainQueue {
+                        self?.iconImgView.isHidden = true
+                    }
+                }
+            }else{
+                sp_mainQueue {
+                    self?.iconImgView.isHidden = true
+                }
             }
         }
+        
         sp_sync { [weak self] in
+            // 处理二维码
             var codeImg = SPQRCode.sp_create(qrCode: sp_getString(string: codeModel.content), size: CGSize(width: sp_screenWidth(), height: sp_screenWidth()))
-            
-            if let bgData = codeModel.bgImgData , let img = codeImg {
-                
-//                let mainColor : UIColor
-//                if sp_getString(string: codeModel.mainColorHex).count > 0 {
-//                    mainColor = SPColorForHexString(hex: sp_getString(string: codeModel.mainColorHex))
-//                }else{
-//                    mainColor = UIColor.black
-//                }
-//                var bgColor : UIColor
-//                if sp_getString(string: codeModel.bgColorHex).count > 0 {
-//                    bgColor = SPColorForHexString(hex: sp_getString(string: codeModel.bgColorHex), alpha: CGFloat(codeModel.bgColorAlpha))
-//                }else {
-//                    bgColor = UIColor.white.withAlphaComponent(0)
-//                }
-//                let image : UIImage
-//                if let i = SPQRCode.sp_color(color1: mainColor, bgColor: bgColor, image: img) {
-//                    image = i
-//                }else{
-//                    image = img
-//                }
-                if let bgImg = UIImage(data: bgData){
-                     codeImg = SPQRCode.sp_add(bgImg: bgImg, image: img)
+            if let img = SPQRCodeDataModel.sp_codeOfBgImg(codeModel: codeModel, originalImg: codeImg){
+                codeImg = img
+            }else{
+                if let img = SPQRCodeDataModel.sp_codeOfColor(codeModel: codeModel, originalImg: codeImg){
+                    codeImg = img
                 }
             }
-            if let img = codeImg {
-                let mainColor : UIColor
-                if sp_getString(string: codeModel.mainColorHex).count > 0 {
-                    mainColor = SPColorForHexString(hex: sp_getString(string: codeModel.mainColorHex))
-                }else {
-                    mainColor = SPColorForHexString(hex: SPHexColor.color_000000.rawValue)
-                }
-                let bgColor : UIColor
-                if sp_getString(string: codeModel.bgColorHex).count > 0 {
-                    bgColor = SPColorForHexString(hex: sp_getString(string: codeModel.bgColorHex), alpha: CGFloat(codeModel.bgColorAlpha))
-                }else{
-                    bgColor = SPColorForHexString(hex: SPHexColor.color_ffffff.rawValue, alpha: CGFloat(codeModel.bgColorAlpha))
-                }
-                codeImg = SPQRCode.sp_color(color1: mainColor, bgColor: bgColor, image: img)
-            }
-
             sp_mainQueue {
                 self?.qrCodeImgView.image = codeImg
             }
         }
- 
+        
         if sp_getString(string: codeModel.text).count > 0 || self.isShow {
             self.titleLabel.isHidden = false
             sp_addConstraint(isTop: codeModel.textAlignment == 0 ? true : false , isValue: true)
@@ -128,6 +126,13 @@ class SPQRCodeView:  UIView{
             self.titleLabel.isHidden = true
             sp_addConstraint(isTop: true, isValue: false)
         }
+        if self.isShow {
+            self.titleLabel.sp_border(color: SPColorForHexString(hex: SPHexColor.color_2a96fd.rawValue), width: sp_scale(value: 1))
+            self.titleLabel.sp_cornerRadius(radius: 5)
+        }else{
+            self.titleLabel.sp_border(color: nil, width: sp_scale(value: 0))
+            self.titleLabel.sp_cornerRadius(radius: 0)
+        }
     }
     /// 添加UI
     fileprivate func sp_setupUI(){
@@ -137,7 +142,8 @@ class SPQRCodeView:  UIView{
         self.qrCodeImgView.addSubview(self.iconImgView)
         self.sp_addConstraint()
         self.iconImgView.snp.makeConstraints { (maker) in
-            maker.size.equalTo(CGSize(width: 50, height: 50))
+            maker.width.equalTo(50)
+            maker.height.equalTo(50)
             maker.centerX.equalTo(self.qrCodeImgView.snp.centerX).offset(0)
             maker.centerY.equalTo(self.qrCodeImgView.snp.centerY).offset(0)
         }

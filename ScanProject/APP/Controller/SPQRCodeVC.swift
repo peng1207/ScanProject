@@ -28,8 +28,15 @@ class SPQRCodeVC: SPBaseVC {
         label.textColor = UIColor.white
         label.textAlignment = .left
         label.numberOfLines = 0
+      
         
         return label
+    }()
+    fileprivate lazy var moreBtn : UIButton = {
+        let btn = UIButton(type: UIButton.ButtonType.custom)
+        btn.setImage(UIImage(named: "public_more_spot"), for: UIControl.State.normal)
+        btn.addTarget(self, action: #selector(sp_clickMore), for: UIControl.Event.touchUpInside)
+        return btn
     }()
     fileprivate lazy var lineView : UIView = {
         let view = UIView()
@@ -42,10 +49,10 @@ class SPQRCodeVC: SPBaseVC {
     }()
    
     fileprivate lazy var shareBtn : UIButton = {
-        let btn = UIButton(type: UIButtonType.custom)
-        btn.setImage(UIImage(named: "public_share"), for: UIControlState.normal)
+        let btn = UIButton(type: UIButton.ButtonType.custom)
+        btn.setImage(UIImage(named: "public_share"), for: UIControl.State.normal)
         btn.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        btn.addTarget(self, action: #selector(sp_clickShare), for: UIControlEvents.touchUpInside)
+        btn.addTarget(self, action: #selector(sp_clickShare), for: UIControl.Event.touchUpInside)
         return btn
     }()
     fileprivate var codeMainColor : UIColor?
@@ -62,7 +69,6 @@ class SPQRCodeVC: SPBaseVC {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        sp_log(message:  sp_getString(string: self.qrCodeModel?.mainColorHex))
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -75,13 +81,20 @@ class SPQRCodeVC: SPBaseVC {
     }
     /// 赋值
     fileprivate func sp_setupData(){
-        self.contentLabel.text = sp_getString(string: self.qrCodeModel?.content)
+        if sp_getString(string: self.contentLabel.text).count == 0 {
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineSpacing = 5
+            let attributedString = NSMutableAttributedString(string: sp_getString(string: self.qrCodeModel?.sp_showContent()))
+            attributedString.addAttributes([NSAttributedString.Key.paragraphStyle : paragraphStyle], range: NSRange(location: 0, length: attributedString.length))
+            self.contentLabel.attributedText = attributedString
+        }
         self.qrCodeView.model = self.qrCodeModel
     }
     /// 创建UI
     override func sp_setupUI() {
         self.navigationItem.title = SPLanguageChange.sp_getString(key: "QRCode")
         self.view.addSubview(self.contentLabel)
+        self.view.addSubview(self.moreBtn)
         self.view.addSubview(self.lineView)
         self.view.addSubview(self.qrCodeView)
         self.view.addSubview(self.safeView)
@@ -97,13 +110,19 @@ class SPQRCodeVC: SPBaseVC {
     fileprivate func sp_addConstraint(){
         self.contentLabel.snp.makeConstraints { (maker) in
             maker.left.equalTo(self.view).offset(5)
-            maker.right.equalTo(self.view).offset(-5)
+            maker.right.equalTo(self.moreBtn.snp.left).offset(-5)
             maker.top.equalTo(self.view).offset(5)
             maker.height.greaterThanOrEqualTo(0)
-            maker.bottom.lessThanOrEqualTo(self.lineView.snp.top).offset(0)
+            maker.bottom.lessThanOrEqualTo(self.lineView.snp.top).offset(-5)
+        }
+        self.moreBtn.snp.makeConstraints { (maker) in
+            maker.width.height.equalTo(30)
+            maker.right.equalTo(self.view).offset(-10)
+            maker.centerY.equalTo(self.lineView.snp.top).multipliedBy(0.5)
         }
         self.lineView.snp.makeConstraints { (maker) in
-            maker.left.right.equalTo(self.contentLabel).offset(0)
+            maker.left.equalTo(self.contentLabel).offset(0)
+            maker.right.equalTo(self.moreBtn.snp.right).offset(0)
             maker.bottom.equalTo(self.qrCodeView.snp.top).offset(-30)
             maker.height.equalTo(sp_scale(value: 1))
         }
@@ -159,7 +178,7 @@ extension SPQRCodeVC {
     /// 点击文本
     fileprivate func sp_text(){
         let textVC = SPTextVC()
-        textVC.qrCodeModel = self.qrCodeModel
+        textVC.qrCodeModel = SPQRCodeModel.sp_init(model: self.qrCodeModel)
         textVC.selectBlock = { [weak self] (model) in
             self?.sp_dealSelect(model: model)
         }
@@ -168,7 +187,7 @@ extension SPQRCodeVC {
     /// 点击底图
     fileprivate func sp_baseMap(){
         let selectImg = SPSelectImgVC()
-        selectImg.qrCodeModel = self.qrCodeModel
+        selectImg.qrCodeModel = SPQRCodeModel.sp_init(model: self.qrCodeModel)
         selectImg.isBg = true
         selectImg.selectBlock = { [weak self] (model) in
             self?.sp_dealSelect(model: model)
@@ -178,7 +197,7 @@ extension SPQRCodeVC {
     ///  点击icon
     fileprivate func sp_icon(){
         let selectImg = SPSelectImgVC()
-        selectImg.qrCodeModel = self.qrCodeModel
+        selectImg.qrCodeModel = SPQRCodeModel.sp_init(model: self.qrCodeModel)
         selectImg.isBg = false
         selectImg.selectBlock = { [weak self] (model) in
             self?.sp_dealSelect(model: model)
@@ -188,18 +207,27 @@ extension SPQRCodeVC {
     /// 点击颜色
     fileprivate func sp_color(){
         let colorVC = SPSelectColorVC()
-        colorVC.qrCodeModel = self.qrCodeModel
+        colorVC.qrCodeModel = SPQRCodeModel.sp_init(model: self.qrCodeModel)
         colorVC.selectBlock = { [weak self] (model) in
             self?.sp_dealSelect(model: model)
         }
         self.navigationController?.pushViewController(colorVC, animated: true)
     }
+    /// 处理添加数据之后 更新数据
+    ///
+    /// - Parameter model: 数据源
     fileprivate func sp_dealSelect(model : SPQRCodeModel?){
         guard let qrModel = model else {
             return
         }
         self.qrCodeModel = qrModel
         sp_setupData()
+    }
+    /// 点击更多
+    @objc fileprivate func sp_clickMore(){
+        let resultVC = SPScanResultVC()
+        resultVC.codeModel = self.qrCodeModel
+        self.navigationController?.pushViewController(resultVC, animated: true)
     }
 }
 

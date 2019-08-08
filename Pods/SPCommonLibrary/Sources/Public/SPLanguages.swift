@@ -9,6 +9,7 @@
 import Foundation
 let AppleLanguages = "AppleLanguages"
 
+///  国际化
 open class SPLanguageChange {
     
     public static let shareInstance = SPLanguageChange()

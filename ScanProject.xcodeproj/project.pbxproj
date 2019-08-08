@@ -31,6 +31,9 @@
 		9E2C6E53211F4ADE00091EF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E2C6E52211F4ADE00091EF6 /* Assets.xcassets */; };
 		9E2C6E61211F4ADF00091EF6 /* ScanProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2C6E60211F4ADF00091EF6 /* ScanProjectTests.swift */; };
 		9E2C6E6C211F4ADF00091EF6 /* ScanProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2C6E6B211F4ADF00091EF6 /* ScanProjectUITests.swift */; };
+		9E9D05C522F81FAE00D89C94 /* SPQRCodeDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9D05C422F81FAE00D89C94 /* SPQRCodeDataModel.swift */; };
+		9E9D05E122FACD0100D89C94 /* SPDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9D05E022FACD0100D89C94 /* SPDataBase.swift */; };
+		9E9D05E622FBAC1B00D89C94 /* SPHistoryListTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9D05E522FBAC1B00D89C94 /* SPHistoryListTableCell.swift */; };
 		9E9D744622EC22570033A259 /* SPVideoPreviewLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9D744522EC22570033A259 /* SPVideoPreviewLayerView.swift */; };
 		9E9D744822EC227A0033A259 /* SPScanManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9D744722EC227A0033A259 /* SPScanManager.swift */; };
 		9E9D745D22EE911F0033A259 /* SPEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9D745C22EE911F0033A259 /* SPEnum.swift */; };
@@ -109,6 +112,9 @@
 		9E2C6E67211F4ADF00091EF6 /* ScanProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScanProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E2C6E6B211F4ADF00091EF6 /* ScanProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanProjectUITests.swift; sourceTree = "<group>"; };
 		9E2C6E6D211F4ADF00091EF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9E9D05C422F81FAE00D89C94 /* SPQRCodeDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPQRCodeDataModel.swift; sourceTree = "<group>"; };
+		9E9D05E022FACD0100D89C94 /* SPDataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPDataBase.swift; sourceTree = "<group>"; };
+		9E9D05E522FBAC1B00D89C94 /* SPHistoryListTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPHistoryListTableCell.swift; sourceTree = "<group>"; };
 		9E9D744522EC22570033A259 /* SPVideoPreviewLayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPVideoPreviewLayerView.swift; sourceTree = "<group>"; };
 		9E9D744722EC227A0033A259 /* SPScanManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPScanManager.swift; sourceTree = "<group>"; };
 		9E9D745C22EE911F0033A259 /* SPEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPEnum.swift; sourceTree = "<group>"; };
@@ -294,6 +300,8 @@
 				9EDCFA3E22EEE6E90058F291 /* SPQRCodeModel.swift */,
 				9E27B29822F12747004638A1 /* SPIndexModel.swift */,
 				9E05D69222F2DC9900D9E907 /* SPVoiceManager.swift */,
+				9E9D05C422F81FAE00D89C94 /* SPQRCodeDataModel.swift */,
+				9E9D05E022FACD0100D89C94 /* SPDataBase.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -317,6 +325,7 @@
 				9E05D6AB22F4095500D9E907 /* SPFontNameView.swift */,
 				9E05D6AF22F41E8300D9E907 /* SPSelectImgToolView.swift */,
 				9E05D6B322F4303800D9E907 /* SPTextToolView.swift */,
+				9E9D05E522FBAC1B00D89C94 /* SPHistoryListTableCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -425,13 +434,16 @@
 				TargetAttributes = {
 					9E2C6E47211F4ADD00091EF6 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1020;
 					};
 					9E2C6E5B211F4ADF00091EF6 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1020;
 						TestTargetID = 9E2C6E47211F4ADD00091EF6;
 					};
 					9E2C6E66211F4ADF00091EF6 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1020;
 						TestTargetID = 9E2C6E47211F4ADD00091EF6;
 					};
 				};
@@ -600,8 +612,11 @@
 				9E9D745F22EEC2BD0033A259 /* SPVoiceVC.swift in Sources */,
 				9EDCFA5522F02D6A0058F291 /* SPIndexTextView.swift in Sources */,
 				9EDCFA5B22F0380E0058F291 /* SPIndexView.swift in Sources */,
+				9E9D05E622FBAC1B00D89C94 /* SPHistoryListTableCell.swift in Sources */,
+				9E9D05E122FACD0100D89C94 /* SPDataBase.swift in Sources */,
 				9EDCFA4D22EFE7C80058F291 /* SPIndexToolView.swift in Sources */,
 				9E05D6A822F3DE6200D9E907 /* SPAddTextVC.swift in Sources */,
+				9E9D05C522F81FAE00D89C94 /* SPQRCodeDataModel.swift in Sources */,
 				9EDCFA3D22EEE6CE0058F291 /* SPBaseModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -781,7 +796,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 2X8ED8ZMS2;
 				INFOPLIST_FILE = ScanProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -791,7 +806,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shupenghuang.scan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				PROVISIONING_PROFILE_SPECIFIER = ScanDev;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -802,7 +818,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 2X8ED8ZMS2;
 				INFOPLIST_FILE = ScanProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -812,7 +829,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.shupenghuang.scan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				PROVISIONING_PROFILE_SPECIFIER = ScanAdhoc;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
