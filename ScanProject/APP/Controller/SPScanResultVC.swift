@@ -158,7 +158,7 @@ extension SPScanResultVC: WKUIDelegate,WKNavigationDelegate,UIScrollViewDelegate
             // 邮件
             app.open(url, options: [UIApplication.OpenExternalURLOptionsKey : Any](), completionHandler: nil)
             decisionHandler(.cancel)
-        }else if urlscheme == "alipays" || urlscheme == "weixin" || urlscheme == "alipay" {
+        }else if urlscheme == "alipays" || urlscheme == "weixin" || urlscheme == "alipay" || sp_getString(string: url.absoluteString).hasSuffix("wechat_pay") {
             // 微信和支付宝
             app.open(url, options: [UIApplication.OpenExternalURLOptionsKey.universalLinksOnly : false], completionHandler: nil)
             decisionHandler(.allow)

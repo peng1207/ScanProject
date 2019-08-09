@@ -20,13 +20,13 @@ class SPVoiceVC: SPBaseVC {
     fileprivate lazy var titleLabel : UILabel = {
         let label = UILabel()
         label.font = sp_fontSize(fontSize:18)
-        label.textColor = SPColorForHexString(hex: SPHexColor.color_333333.rawValue)
+        label.textColor = SPColorForHexString(hex: SPHexColor.color_ffffff.rawValue)
         label.textAlignment = .center
         return label
     }()
     fileprivate lazy var contentLabel : UILabel = {
         let label = UILabel()
-        label.font =  sp_fontSize(fontSize:18)
+        label.font =  sp_fontSize(fontSize:24)
         label.textColor = SPColorForHexString(hex: SPHexColor.color_2a96fd.rawValue)
         label.textAlignment = .right
         label.numberOfLines = 0
@@ -37,7 +37,9 @@ class SPVoiceVC: SPBaseVC {
     fileprivate lazy var tipsLabel : UILabel = {
         let label = UILabel()
         label.textColor = UIColor.white
+        label.font = sp_fontSize(fontSize: 18)
         label.textAlignment = .center
+        label.numberOfLines = 0
         return label
     }()
     fileprivate lazy var microphoneBtn : UIButton = {
@@ -48,6 +50,13 @@ class SPVoiceVC: SPBaseVC {
         btn.sp_border(color: SPColorForHexString(hex: SPHexColor.color_2a96fd.rawValue), width: 1)
         btn.addTarget(self, action: #selector(sp_microphoneTapped), for: UIControl.Event.touchUpInside)
         btn.backgroundColor = SPColorForHexString(hex: SPHexColor.color_eeeeee.rawValue)
+        return btn
+    }()
+    fileprivate lazy var doneBtn : UIButton = {
+        let btn = UIButton(type: UIButton.ButtonType.custom)
+        btn.setImage(UIImage(named: "public_select"), for: UIControl.State.normal)
+        btn.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        btn.addTarget(self, action: #selector(sp_clickContent), for: UIControl.Event.touchUpInside)
         return btn
     }()
     fileprivate lazy var animationView : UIView = {
@@ -92,6 +101,7 @@ class SPVoiceVC: SPBaseVC {
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        sp_stopRecord()
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -103,6 +113,8 @@ class SPVoiceVC: SPBaseVC {
         self.view.addSubview(self.contentLabel)
         self.view.addSubview(self.animationView)
         self.view.addSubview(self.microphoneBtn)
+        self.view.addSubview(self.tipsLabel)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.doneBtn)
         self.sp_addConstraint()
     }
     /// 处理有没数据
@@ -114,7 +126,7 @@ class SPVoiceVC: SPBaseVC {
         self.titleLabel.snp.makeConstraints { (maker) in
             maker.left.right.equalTo(self.view).offset(0)
             maker.height.greaterThanOrEqualTo(0)
-            maker.top.equalTo(self.view).offset(sp_statusBarHeight() + 10)
+            maker.top.equalTo(self.view).offset(20)
         }
         self.contentLabel.snp.makeConstraints { (maker) in
             maker.left.equalTo(self.view).offset(12)
@@ -131,6 +143,14 @@ class SPVoiceVC: SPBaseVC {
             } else {
                 maker.bottom.equalTo(self.view.snp.bottom).offset(-20)
             }
+        }
+        self.tipsLabel.snp.makeConstraints { (maker) in
+            maker.left.greaterThanOrEqualTo(10)
+            maker.right.lessThanOrEqualTo(-10)
+            maker.height.greaterThanOrEqualTo(0)
+            maker.width.greaterThanOrEqualTo(0)
+            maker.centerX.equalTo(self.view.snp.centerX).offset(0)
+            maker.bottom.equalTo(self.microphoneBtn.snp.top).offset(-40)
         }
         self.animationView.snp.makeConstraints { (maker) in
             maker.left.right.equalTo(self.view).offset(0)
@@ -247,6 +267,7 @@ extension SPVoiceVC : SFSpeechRecognizerDelegate {
         sp_startAnimation()
         sp_mainQueue {
              self.titleLabel.text = SPLanguageChange.sp_getString(key: "recognition_in_progress")
+             self.tipsLabel.text = SPLanguageChange.sp_getString(key: "want_create_qrcode")
         }
        
     }
@@ -263,6 +284,7 @@ extension SPVoiceVC : SFSpeechRecognizerDelegate {
         sp_mainQueue {
             self.sp_stopAnimation()
             self.titleLabel.text = SPLanguageChange.sp_getString(key: "stop_recognition")
+            self.tipsLabel.text = SPLanguageChange.sp_getString(key: "click_voice_btn")
         }
     }
     /// 开启动画
@@ -290,8 +312,15 @@ extension SPVoiceVC : SFSpeechRecognizerDelegate {
     }
     @objc fileprivate func sp_clickContent(){
         sp_log(message: "点击内容 跳到生成二维码界面 " + sp_getString(string: self.contentLabel.text))
+        sp_stopRecord()
         if sp_getString(string: self.contentLabel.text).count <= 0  {
             // 请您说出需要转换的词语
+            let alertController = UIAlertController(title: SPLanguageChange.sp_getString(key: "tips")
+                , message:SPLanguageChange.sp_getString(key: "want_create_qrcode") , preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: SPLanguageChange.sp_getString(key: "know"), style: UIAlertAction.Style.default, handler: { [weak self](action) in
+                self?.sp_startRecording()
+            }))
+            self.present(alertController, animated: true, completion: nil)
             return
         }
         

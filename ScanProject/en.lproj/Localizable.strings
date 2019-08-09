@@ -59,3 +59,5 @@
 "result" = "Result";
 "done" = "Done";
 "no_data_identified" = "No data identified";
+"click_voice_btn" = "Please click the button to start identification.";
+"want_create_qrcode" = "Tell me what you want to generate the QR Code.";

@@ -122,6 +122,8 @@ extension SPScanVC : UIImagePickerControllerDelegate,UINavigationControllerDeleg
     ///
     /// - Parameter data: 扫描得到的数据
     fileprivate func sp_dealScanData(data : [String]){
+//        sp_ring()
+        sp_shake()
         sp_log(message: data)
        let qrCodeModel = SPQRCodeModel()
         qrCodeModel.content =  data.joined(separator: " ")
@@ -166,7 +168,7 @@ extension SPScanVC : UIImagePickerControllerDelegate,UINavigationControllerDeleg
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true, completion: nil)
    
-          let img = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        let img = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
         if  let resultList = SPQRCode.sp_recognizeQRCode(codeImg: img) {
             sp_dealScanData(data: resultList)
         }else {

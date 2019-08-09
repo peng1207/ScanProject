@@ -59,3 +59,5 @@
 "result" = "结果";
 "done" = "确定";
 "no_data_identified" = "没有识别到数据";
+"click_voice_btn" = "请点击按钮开始识别";
+"want_create_qrcode" = "请说出您想要生成二维码的内容";

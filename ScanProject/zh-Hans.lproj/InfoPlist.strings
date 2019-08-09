@@ -5,9 +5,9 @@
   Created by 黄树鹏 on 2019/7/26.
   Copyright © 2019 shupenghuang. All rights reserved.
 */
-CFBundleName = "Scan";
-CFBundleDisplayName = "Scan";
-NSCameraUsageDescription = "使用摄像头扫描二维码或条形码，若不允许，将无法扫描";
+CFBundleName = "码来扫";
+CFBundleDisplayName = "码来扫";
+NSCameraUsageDescription = "使用摄像头扫描二维码，若不允许，将无法扫描";
 NSPhotoLibraryAddUsageDescription = "保存图片到相册中，若不允许，将无法保存";
 NSSpeechRecognitionUsageDescription = "需要将您的语音转成文字，若不允许，无法转换";
 NSMicrophoneUsageDescription = "使用您的麦克风语音录制，若不允许，无法录制";
