@@ -47,32 +47,44 @@ class SPIndexView:  UIView{
             return self.wifiView.sp_getData()
         }else if !self.cardView.isHidden {
             var content = "BEGIN:VCARD \nVERSION:3.0 "
+            var isValue = false
             if sp_getString(string: self.cardView.nameView.textField.text).count > 0 {
                 content = content + "\nN:\(sp_getString(string: self.cardView.nameView.textField.text))"
+                isValue = true
             }
             if sp_getString(string: self.cardView.emailView.textField.text).count > 0 {
                 content.append("\nEMAIL:\(sp_getString(string: self.cardView.emailView.textField.text))")
+                 isValue = true
             }
             if sp_getString(string: self.cardView.phoneView.textField.text).count > 0 {
                 content.append("\nTEL;CELL:\(sp_getString(string: self.cardView.phoneView.textField.text))")
+                 isValue = true
             }
             if sp_getString(string: self.cardView.telView.textField.text).count > 0 {
                 content.append("\nTEL:\(sp_getString(string: self.cardView.telView.textField.text))")
+                 isValue = true
             }
             if sp_getString(string: self.cardView.companyAddressView.textField.text).count > 0 {
                 content.append("\nADR;TYPE=WORK:\(sp_getString(string: self.cardView.companyAddressView.textField.text))")
+                 isValue = true
             }
             if sp_getString(string: self.cardView.companyView.textField.text).count > 0 {
                 content.append("\nORG:\(sp_getString(string: self.cardView.companyView.textField.text))")
+                 isValue = true
             }
             if sp_getString(string: self.cardView.positionView.textField.text).count > 0 {
                 content.append("\nTITLE:\(sp_getString(string: self.cardView.positionView.textField.text))")
+                 isValue = true
             }
             if sp_getString(string: self.cardView.remarksView.textField.text).count > 0 {
                 content.append("\nNOTE:\(sp_getString(string: self.cardView.remarksView.textField.text))")
+                 isValue = true
             }
             content.append("\nEND:VCARD")
-            return content
+            if isValue {
+                return content
+            }
+            return ""
         }
         return ""
     }
