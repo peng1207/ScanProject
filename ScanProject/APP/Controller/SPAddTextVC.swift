@@ -182,7 +182,7 @@ class SPAddTextVC: SPBaseVC {
 extension SPAddTextVC {
     fileprivate func sp_addNotification(){
         NotificationCenter.default.addObserver(self, selector: #selector(sp_keyboardShow(obj:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        
+    
     }
     @objc fileprivate func sp_keyboardShow(obj : Notification){
        let height = sp_getKeyBoardheight(notification: obj)

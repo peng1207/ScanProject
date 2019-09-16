@@ -78,7 +78,6 @@ class SPScanManager : NSObject,AVCaptureMetadataOutputObjectsDelegate,AVCaptureP
         if captureSession.canAddOutput(metadataOutput) {
             captureSession.addOutput(metadataOutput)
             metadataOutput.setMetadataObjectsDelegate(self, queue:  DispatchQueue.main)
-//            metadataOutput.metadataObjectTypes = [.qr,.code128,.ean13,.ean8,.code39,.code93]
               metadataOutput.metadataObjectTypes = [.qr]
         }else{
             return
@@ -89,33 +88,7 @@ class SPScanManager : NSObject,AVCaptureMetadataOutputObjectsDelegate,AVCaptureP
             videoDataOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "videoQueue"))
             captureSession.addOutput(videoDataOutput)
         }
-        
-        
-//        let setting = AVCapturePhotoSettings()
-//        setting.flashMode = .on
-//        let photoOutput = AVCapturePhotoOutput()
-//        photoOutput.setPreparedPhotoSettingsArray([setting]) { (finish, error) in
-//
-//        }
-//        if captureSession.canAddOutput(photoOutput) {
-//            captureSession.addOutput(photoOutput)
-//        }
-        
-//        sp_changeDeviceProperty {
-//
-//          // 自动白平衡
-////            if videoCaptureDevice.isWhiteBalanceModeSupported(AVCaptureDevice.WhiteBalanceMode.autoWhiteBalance) {
-////                videoCaptureDevice.whiteBalanceMode = .autoWhiteBalance
-////            }
-//            //自动对焦
-////            if videoCaptureDevice.isFocusModeSupported(AVCaptureDevice.FocusMode.autoFocus) {
-////                videoCaptureDevice.focusMode = .autoFocus
-////            }
-////         自动曝光
-////            if videoCaptureDevice.isExposureModeSupported(AVCaptureDevice.ExposureMode.autoExpose) {
-////                videoCaptureDevice.exposureMode = .autoExpose
-////            }
-//        }
+
         if let layer = self.previewLayer {
             layer.videoGravity = .resizeAspectFill
             layer.session = self.captureSession
@@ -147,8 +120,70 @@ class SPScanManager : NSObject,AVCaptureMetadataOutputObjectsDelegate,AVCaptureP
         if self.captureSession.isRunning{
             self.captureSession.stopRunning()
         }
-      
     }
+    ///   闪光灯设置
+    ///
+    /// - Returns: 闪光灯 打开或失败 true 打开 false 关闭
+      func sp_flash()->Bool{
+        guard let currentDevice = self.videoCaptureDev else {
+            return false
+        }
+        if currentDevice.position == AVCaptureDevice.Position.front {
+            return false
+        }
+        if currentDevice.torchMode == AVCaptureDevice.TorchMode.off {
+            return sp_flashOn()
+        }else{
+            return sp_flashOff()
+        }
+    }
+    ///   打开闪光灯
+    ///
+    /// - Returns: 打开闪光灯
+    func sp_flashOn()->Bool{
+        guard let currentDevice = self.videoCaptureDev else {
+            return false
+        }
+        if !currentDevice.hasTorch {
+            return false
+        }
+        sp_changeDeviceProperty(device: currentDevice) {
+            if currentDevice.torchMode ==  AVCaptureDevice.TorchMode.off {
+                currentDevice.torchMode =  AVCaptureDevice.TorchMode.on
+            }
+        }
+        return true
+    }
+    /// 关闭闪关灯
+    ///
+    /// - Returns: false 关闭闪关灯
+    func sp_flashOff()->Bool{
+        guard let currentDevice = self.videoCaptureDev else {
+            return false
+        }
+        
+        if !currentDevice.hasTorch {
+            return false
+        }
+        
+        sp_changeDeviceProperty(device: currentDevice) {
+            if currentDevice.torchMode ==  AVCaptureDevice.TorchMode.on {
+                currentDevice.torchMode =  AVCaptureDevice.TorchMode.off
+            }
+            
+        }
+        return false
+    }
+    private func sp_changeDeviceProperty(device : AVCaptureDevice,complete : ()->Void){
+        do{
+            try device.lockForConfiguration()
+            complete()
+            device.unlockForConfiguration()
+        }catch _ {
+            
+        }
+    }
+    
     /// 扫描到数据的代理
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         if metadataObjects.count > 0  {

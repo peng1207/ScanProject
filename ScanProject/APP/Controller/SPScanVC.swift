@@ -30,6 +30,13 @@ class SPScanVC: SPBaseVC {
         btn.addTarget(self, action: #selector(sp_clickAlbum), for: UIControl.Event.touchUpInside)
         return btn
     }()
+    fileprivate lazy var flashBtn : UIButton = {
+        let btn = UIButton(type: UIButton.ButtonType.custom)
+        btn.setImage(UIImage(named: "public_flashOn"), for: UIControl.State.normal)
+        btn.setImage(UIImage(named: "public_flashOff"), for: UIControl.State.selected)
+        btn.addTarget(self, action: #selector(sp_clickFlash), for: UIControl.Event.touchUpInside)
+        return btn
+    }()
     fileprivate var isPush : Bool = false
     fileprivate var needShow : Bool = true
     override func viewDidLoad() {
@@ -64,6 +71,7 @@ class SPScanVC: SPBaseVC {
         self.view.addSubview(self.previewLayer)
         self.view.addSubview(self.backBtn)
         self.view.addSubview(self.albumBtn)
+        self.view.addSubview(self.flashBtn)
         self.sp_addConstraint()
     }
     /// 处理有没数据
@@ -90,6 +98,15 @@ class SPScanVC: SPBaseVC {
             maker.width.height.equalTo(30)
             maker.right.equalTo(self.view).offset(-20)
             maker.centerY.equalTo(self.backBtn.snp.centerY).offset(0)
+        }
+        self.flashBtn.snp.makeConstraints { (maker) in
+            maker.width.height.equalTo(30)
+            maker.centerX.equalTo(self.view.snp.centerX).offset(0)
+            if #available(iOS 11.0, *) {
+                maker.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-20)
+            } else {
+                maker.bottom.equalTo(self.view.snp.bottom).offset(-20)
+            }
         }
     }
     deinit {
@@ -140,7 +157,11 @@ extension SPScanVC : UIImagePickerControllerDelegate,UINavigationControllerDeleg
     /// 停止
     func sp_stop(){
         self.manager.sp_stop()
+        self.manager.sp_flashOff()
         self.previewLayer.sp_stopAnimation()
+    }
+    @objc fileprivate func sp_clickFlash(){
+        self.flashBtn.isSelected = self.manager.sp_flash()
     }
     /// 点击相册
     @objc fileprivate func sp_clickAlbum(){
