@@ -318,6 +318,7 @@ extension SPVoiceVC : SFSpeechRecognizerDelegate {
             let alertController = UIAlertController(title: SPLanguageChange.sp_getString(key: "tips")
                 , message:SPLanguageChange.sp_getString(key: "want_create_qrcode") , preferredStyle: UIAlertController.Style.alert)
             alertController.addAction(UIAlertAction(title: SPLanguageChange.sp_getString(key: "know"), style: UIAlertAction.Style.default, handler: { [weak self](action) in
+                self?.sp_stopRecord()
                 self?.sp_startRecording()
             }))
             self.present(alertController, animated: true, completion: nil)
