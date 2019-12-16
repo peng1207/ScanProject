@@ -169,20 +169,23 @@ extension SPScanVC : UIImagePickerControllerDelegate,UINavigationControllerDeleg
             if auth {
                 self?.isPush = true
                 self?.needShow = false
-                let imgPickerVC = UIImagePickerController()
-                imgPickerVC.sourceType = .photoLibrary
-                imgPickerVC.delegate = self
-              
-                self?.present(imgPickerVC, animated: true, completion: nil)
+                sp_mainQueue {
+                    let imgPickerVC = UIImagePickerController()
+                    imgPickerVC.sourceType = .photoLibrary
+                    imgPickerVC.delegate = self
+                    self?.present(imgPickerVC, animated: true, completion: nil)
+                }
             }else{
-                let alertController = UIAlertController(title: SPLanguageChange.sp_getString(key: "tips"), message: SPLanguageChange.sp_getString(key: "no_photo_auth"), preferredStyle: UIAlertController.Style.alert)
-                alertController.addAction(UIAlertAction(title: SPLanguageChange.sp_getString(key: "go_to"), style: UIAlertAction.Style.default, handler: { (action) in
-                    
-                }))
-                alertController.addAction(UIAlertAction(title: SPLanguageChange.sp_getString(key: "cance"), style: UIAlertAction.Style.cancel, handler: { (action) in
-                    
-                }))
-                self?.present(alertController, animated: true, completion: nil)
+                sp_mainQueue {
+                    let alertController = UIAlertController(title: SPLanguageChange.sp_getString(key: "tips"), message: SPLanguageChange.sp_getString(key: "no_photo_auth"), preferredStyle: UIAlertController.Style.alert)
+                    alertController.addAction(UIAlertAction(title: SPLanguageChange.sp_getString(key: "go_to"), style: UIAlertAction.Style.default, handler: { (action) in
+                        
+                    }))
+                    alertController.addAction(UIAlertAction(title: SPLanguageChange.sp_getString(key: "cance"), style: UIAlertAction.Style.cancel, handler: { (action) in
+                        
+                    }))
+                    self?.present(alertController, animated: true, completion: nil)
+                }
             }
         }
     }
@@ -190,7 +193,7 @@ extension SPScanVC : UIImagePickerControllerDelegate,UINavigationControllerDeleg
         picker.dismiss(animated: true, completion: nil)
    
         let img = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
-        if  let resultList = SPQRCode.sp_recognizeQRCode(codeImg: img) {
+        if  let resultList = SPQRCode.sp_recognizeQRCode(codeImg: img) , sp_count(array: resultList) > 0{
             sp_dealScanData(data: resultList)
         }else {
             // 没有识别到数据
@@ -199,8 +202,9 @@ extension SPScanVC : UIImagePickerControllerDelegate,UINavigationControllerDeleg
             alertController.addAction(UIAlertAction(title: SPLanguageChange.sp_getString(key: "done"), style: UIAlertAction.Style.default, handler: { [weak self](action) in
                 self?.sp_start()
             }))
-            self.present(alertController, animated: true, completion: nil)
-            
+            sp_mainQueue {
+                self.present(alertController, animated: true, completion: nil)
+            }
         }
         
         

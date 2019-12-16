@@ -14,7 +14,7 @@ class SPKeyboardView:  UIView{
     fileprivate lazy var doneBtn : UIButton = {
         let btn = UIButton(type: UIButton.ButtonType.custom)
         btn.setTitle(SPLanguageChange.sp_getString(key: "finish"), for: UIControl.State.normal)
-        btn.setTitleColor(SPColorForHexString(hex: SPHexColor.color_2a96fd.rawValue), for: UIControl.State.normal)
+        btn.setTitleColor(sp_titleColor(), for: UIControl.State.normal)
         btn.titleLabel?.font = sp_fontSize(fontSize: 16)
         btn.addTarget(self, action: #selector(sp_clickDone), for: UIControl.Event.touchUpInside)
         return btn
@@ -22,7 +22,7 @@ class SPKeyboardView:  UIView{
     fileprivate lazy var canceBtn : UIButton = {
         let btn = UIButton(type: UIButton.ButtonType.custom)
         btn.setTitle(SPLanguageChange.sp_getString(key: "cance"), for: UIControl.State.normal)
-        btn.setTitleColor(SPColorForHexString(hex: SPHexColor.color_2a96fd.rawValue), for: UIControl.State.normal)
+        btn.setTitleColor(sp_titleColor(), for: UIControl.State.normal)
         btn.titleLabel?.font = sp_fontSize(fontSize: 16)
         btn.addTarget(self, action: #selector(sp_clickCance), for: UIControl.Event.touchUpInside)
         return btn
@@ -36,6 +36,13 @@ class SPKeyboardView:  UIView{
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    private func sp_titleColor()->UIColor{
+        if sp_isDark() {
+            return UIColor.white
+        }else{
+            return SPColorForHexString(hex: SPHexColor.color_2a96fd.rawValue)
+        }
+    }
     /// 展示view
     ///
     /// - Parameters:
@@ -46,7 +53,7 @@ class SPKeyboardView:  UIView{
         let view = SPKeyboardView(frame: CGRect(x: 0, y: 0, width: sp_screenWidth(), height: 50))
         view.doneBlock = done
         view.canceBlock = cance
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = sp_isDark() ? UIColor.black : UIColor.white
         return view
     }
     @objc fileprivate func sp_clickDone(){

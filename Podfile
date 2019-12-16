@@ -8,7 +8,8 @@ target 'ScanProject' do
   use_frameworks!
   pod 'SPCommonLibrary/Public'
   pod 'SPCommonLibrary/Share'
-  pod 'SPCommonLibrary/Clip'
+  pod 'SPCommonLibrary/ImageManager'
+  pod 'SPCommonLibrary/CodeManager'
 #  pod 'SPCommonLibrary/Request'
 #    pod 'SPCommonLibrary'
 #  pod 'SPCommonLibrary', :path => "/Users/huangshupeng/Documents/git/SPCommonLibrary"

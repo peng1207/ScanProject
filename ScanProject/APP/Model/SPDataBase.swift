@@ -15,7 +15,7 @@ class SPDataBase : Object {
     /// 配置数据库
     class func sp_configRealm(){
         /// 如果要存储的数据模型属性发生变化,需要配置当前版本号比之前大
-        let dbVersion : UInt64 = 4
+        let dbVersion : UInt64 = 5
         let docPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0] as String
         let dbPath = docPath.appending("/scanDB.realm")
         sp_log(message: "数据库地址:\(dbPath)")

@@ -33,9 +33,10 @@ class SPHistoryListVC: SPBaseVC {
     }
     /// 赋值
     fileprivate func sp_setupData(){
-        sp_sync { [weak self] in
+         let queue = DispatchQueue(label: "historyQueue")
+        queue.sync {  [weak self] in
             if let isA = self?.isAdd , isA == true {
-                 self?.dataList = SPDataBase.sp_getAddData()
+                self?.dataList = SPDataBase.sp_getAddData()
             }else{
                 self?.dataList = SPDataBase.sp_getScanData()
             }

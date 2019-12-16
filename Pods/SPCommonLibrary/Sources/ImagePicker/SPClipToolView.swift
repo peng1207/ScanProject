@@ -8,22 +8,27 @@
 import Foundation
 import UIKit
 import SnapKit
-/// 类型
+/// 按钮类型
 enum SPClipType {
+    /// 取消
     case cance
+    /// 完成
     case done
+    /// 旋转
     case rotate
+    ///  放大
     case zoom
 }
+/// 点击按钮类型回调
 typealias SPClipTypeComplete = (_ type : SPClipType)->Void
-
+/// 裁剪图片 工具view
 class SPClipToolView:  UIView{
     fileprivate lazy var canceBtn : UIButton = {
        
         let btn = UIButton(type: UIButton.ButtonType.custom)
         btn.setTitle("cance", for: UIControl.State.normal)
         btn.setTitleColor(UIColor.white, for: UIControl.State.normal)
-        btn.titleLabel?.font = sp_fontSize(fontSize: 16)
+        btn.titleLabel?.font =  sp_fontSize(fontSize: 16)
         btn.addTarget(self, action: #selector(sp_clickCance), for: UIControl.Event.touchUpInside)
         return btn
     }()
@@ -31,27 +36,30 @@ class SPClipToolView:  UIView{
         let btn = UIButton(type: UIButton.ButtonType.custom)
         btn.setTitle("done", for: UIControl.State.normal)
         btn.setTitleColor(UIColor.white, for: UIControl.State.normal)
-         btn.titleLabel?.font = sp_fontSize(fontSize: 16)
+         btn.titleLabel?.font =  sp_fontSize(fontSize: 16)
         btn.addTarget(self, action: #selector(sp_clickDone), for: UIControl.Event.touchUpInside)
         return btn
     }()
     fileprivate lazy var rotateBtn : UIButton = {
         let btn = UIButton(type: UIButton.ButtonType.custom)
-        if let bundle = Bundle(identifier: "org.cocoapods.SPCommonLibrary"){
-             btn.setImage(UIImage(named: "public_rotate", in: bundle, compatibleWith: nil), for: UIControl.State.normal)
-        }else{
-            btn.setImage(UIImage(named: "public_rotate"), for: UIControl.State.normal)
-        }
+      
+        btn.setImage(  Bundle.sp_getImg(name: "public_rotate@2x"), for: UIControl.State.normal)
+//        if let bundle = Bundle(identifier: "org.cocoapods.SPCommonLibrary"){
+//             btn.setImage(UIImage(named: "public_rotate", in: bundle, compatibleWith: nil), for: UIControl.State.normal)
+//        }else{
+//            btn.setImage(UIImage(named: "public_rotate"), for: UIControl.State.normal)
+//        }
         btn.addTarget(self, action: #selector(sp_clickRotate), for: UIControl.Event.touchUpInside)
         return btn
     }()
     lazy var zoomBtn : UIButton = {
         let btn = UIButton(type: UIButton.ButtonType.custom)
-        if let bundle = Bundle(identifier: "org.cocoapods.SPCommonLibrary"){
-            btn.setImage(UIImage(named: "public_zoom", in: bundle, compatibleWith: nil), for: UIControl.State.normal)
-        }else{
-              btn.setImage(UIImage(named: "public_zoom"), for: UIControl.State.normal)
-        }
+        btn.setImage(Bundle.sp_getImg(name: "public_zoom@2x"), for: UIControl.State.normal)
+//        if let bundle = Bundle(identifier: "org.cocoapods.SPCommonLibrary"){
+//            btn.setImage(UIImage(named: "public_zoom", in: bundle, compatibleWith: nil), for: UIControl.State.normal)
+//        }else{
+//              btn.setImage(UIImage(named: "public_zoom"), for: UIControl.State.normal)
+//        }
       
         btn.addTarget(self, action: #selector(sp_clickZoom), for: UIControl.Event.touchUpInside)
         return btn
