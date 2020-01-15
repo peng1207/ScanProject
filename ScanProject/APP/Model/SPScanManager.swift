@@ -157,7 +157,7 @@ class SPScanManager : NSObject,AVCaptureMetadataOutputObjectsDelegate,AVCaptureP
     /// 关闭闪关灯
     ///
     /// - Returns: false 关闭闪关灯
-    func sp_flashOff()->Bool{
+    @discardableResult func sp_flashOff()->Bool{
         guard let currentDevice = self.videoCaptureDev else {
             return false
         }
@@ -202,12 +202,12 @@ class SPScanManager : NSObject,AVCaptureMetadataOutputObjectsDelegate,AVCaptureP
         
     }
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        let brightnessValue = SPSampleBuffer.sp_brightness(sampleBuffer: sampleBuffer)
-        if brightnessValue <= 0  {
-            // 光线太暗
-        }else{
-            
-        }
+//        let brightnessValue = SPSampleBuffer.sp_brightness(sampleBuffer: sampleBuffer)
+//        if brightnessValue <= 0  {
+//            // 光线太暗
+//        }else{
+//
+//        }
     }
     func photoOutput(_ output: AVCapturePhotoOutput, didCapturePhotoFor resolvedSettings: AVCaptureResolvedPhotoSettings) {
         sp_log(message: resolvedSettings)

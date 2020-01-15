@@ -145,6 +145,7 @@ extension SPSelectImgVC {
         let imgPickerVC = UIImagePickerController()
         imgPickerVC.sourceType = .photoLibrary
         imgPickerVC.delegate = self
+        imgPickerVC.modalPresentationStyle = .fullScreen
         self.present(imgPickerVC, animated: true, completion: nil)
     }
     /// 裁剪图片
@@ -156,6 +157,7 @@ extension SPSelectImgVC {
         clipVC.clipBlock = { [weak self] (img , isCance) in
             self?.sp_dealClip(img: img, isCance: isCance)
         }
+        clipVC.modalPresentationStyle = .fullScreen
         self.present(clipVC, animated: true, completion: nil)
     }
     @objc fileprivate func sp_clickDone(){

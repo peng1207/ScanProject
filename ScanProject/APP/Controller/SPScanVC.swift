@@ -82,11 +82,12 @@ class SPScanVC: SPBaseVC {
     fileprivate func sp_addConstraint(){
         self.previewLayer.snp.makeConstraints { (maker) in
             maker.left.right.top.equalTo(self.view).offset(0)
-            if #available(iOS 11.0, *) {
-                maker.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(0)
-            } else {
-                maker.bottom.equalTo(self.view.snp.bottom).offset(0)
-            }
+//            if #available(iOS 11.0, *) {
+//                maker.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(0)
+//            } else {
+//                maker.bottom.equalTo(self.view.snp.bottom).offset(0)
+//            }
+            maker.bottom.equalTo(self.view.snp.bottom).offset(0)
         }
         self.backBtn.snp.makeConstraints { (maker) in
             maker.left.equalTo(self.view).offset(10)
@@ -173,6 +174,7 @@ extension SPScanVC : UIImagePickerControllerDelegate,UINavigationControllerDeleg
                     let imgPickerVC = UIImagePickerController()
                     imgPickerVC.sourceType = .photoLibrary
                     imgPickerVC.delegate = self
+                    imgPickerVC.modalPresentationStyle = .fullScreen
                     self?.present(imgPickerVC, animated: true, completion: nil)
                 }
             }else{

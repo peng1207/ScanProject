@@ -13,7 +13,7 @@ import Speech
 import SPCommonLibrary
 class SPVoiceVC: SPBaseVC {
     
-    fileprivate var speecjRecognizer : SFSpeechRecognizer!
+    fileprivate var speechRecognizer : SFSpeechRecognizer?
     fileprivate var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     fileprivate var recognitionTask: SFSpeechRecognitionTask?
     fileprivate let audioEngine = AVAudioEngine()
@@ -22,6 +22,7 @@ class SPVoiceVC: SPBaseVC {
         label.font = sp_fontSize(fontSize:18)
         label.textColor = SPColorForHexString(hex: SPHexColor.color_ffffff.rawValue)
         label.textAlignment = .center
+        label.numberOfLines = 0
         return label
     }()
     fileprivate lazy var contentLabel : UILabel = {
@@ -50,6 +51,7 @@ class SPVoiceVC: SPBaseVC {
         btn.sp_border(color: SPColorForHexString(hex: SPHexColor.color_2a96fd.rawValue), width: 1)
         btn.addTarget(self, action: #selector(sp_microphoneTapped), for: UIControl.Event.touchUpInside)
         btn.backgroundColor = SPColorForHexString(hex: SPHexColor.color_eeeeee.rawValue)
+        btn.isEnabled = false
         return btn
     }()
     fileprivate lazy var doneBtn : UIButton = {
@@ -87,7 +89,7 @@ class SPVoiceVC: SPBaseVC {
 //        group.autoreverses = true
         return group
     }()
-    
+    fileprivate var isAuth : Bool = false
     override func viewDidLoad() {
         super.viewDidLoad()
         self.sp_setupUI()
@@ -175,12 +177,18 @@ extension SPVoiceVC : SFSpeechRecognizerDelegate {
                     if success {
                         self?.sp_sendSpeech()
                         self?.sp_startRecording()
+                        
                     }else{
                           self?.sp_dealNoSpeech()
+                       
                     }
+                    self?.isAuth = success
+                    self?.sp_dealAuth()
                 })
             }else {
+                self?.isAuth = false
                 self?.sp_dealNoRecord()
+                self?.sp_dealAuth()
             }
         }
     }
@@ -216,8 +224,8 @@ extension SPVoiceVC : SFSpeechRecognizerDelegate {
     
     /// 初始化语音转换
     fileprivate func sp_sendSpeech(){
-        speecjRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "zh-CN"))
-        speecjRecognizer.delegate = self
+        speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "zh-CN"))
+        speechRecognizer?.delegate = self
     }
     func speechRecognizer(_ speechRecognizer: SFSpeechRecognizer, availabilityDidChange available: Bool) {
         sp_log(message: "语音转换")
@@ -225,6 +233,10 @@ extension SPVoiceVC : SFSpeechRecognizerDelegate {
     /// 开始录制
     fileprivate func sp_startRecording(){
        
+        guard let speech = self.speechRecognizer  else {
+            return
+        }
+        
         let audioSession = AVAudioSession.sharedInstance()
         do {
             try audioSession.setCategory(AVAudioSession.Category.record)
@@ -240,7 +252,7 @@ extension SPVoiceVC : SFSpeechRecognizerDelegate {
             fatalError("Unable to create an SFSpeechAudioBufferRecognitionRequest object")
         }
         rRequest.shouldReportPartialResults = true
-        recognitionTask = speecjRecognizer.recognitionTask(with: rRequest, resultHandler: { [weak self](result, error) in
+        recognitionTask = speech.recognitionTask(with: rRequest, resultHandler: { [weak self](result, error) in
             var isFinal = false
             if result != nil {
                 sp_log(message: result?.bestTranscription.formattedString)
@@ -303,7 +315,10 @@ extension SPVoiceVC : SFSpeechRecognizerDelegate {
         }
     }
    /// 点击录音
-   @objc fileprivate func sp_microphoneTapped(){
+    @objc fileprivate func sp_microphoneTapped(){
+        guard self.isAuth else {
+            return
+        }
         if self.audioEngine.isRunning {
             self.sp_stopRecord()
         }else{
@@ -311,6 +326,9 @@ extension SPVoiceVC : SFSpeechRecognizerDelegate {
         }
     }
     @objc fileprivate func sp_clickContent(){
+        guard self.isAuth else {
+            return
+        }
         sp_log(message: "点击内容 跳到生成二维码界面 " + sp_getString(string: self.contentLabel.text))
         sp_stopRecord()
         if sp_getString(string: self.contentLabel.text).count <= 0  {
@@ -332,6 +350,20 @@ extension SPVoiceVC : SFSpeechRecognizerDelegate {
         qrCodeVC.qrCodeModel = SPQRCodeModel.sp_deserialize(from:  SPDataBase.sp_save(model: qrCodeModel)?.sp_toJson())
         self.navigationController?.pushViewController(qrCodeVC, animated: true)
         
+    }
+    /// 处理权限后的按钮 提示语
+    fileprivate func sp_dealAuth(){
+        sp_mainQueue {
+            if self.isAuth {
+                self.microphoneBtn.isEnabled = true
+                self.doneBtn.isEnabled = true
+                self.titleLabel.text = ""
+            }else{
+                self.microphoneBtn.isEnabled = false
+                self.doneBtn.isEnabled = false
+                self.titleLabel.text = SPLanguageChange.sp_getString(key: "no_speech_auth_tip")
+            }
+        }
     }
 }
 

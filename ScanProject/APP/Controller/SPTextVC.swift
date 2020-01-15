@@ -111,6 +111,7 @@ extension SPTextVC {
         addTextVC.selectBlock = { [weak self] (model )in
             self?.sp_dealSelect(model: model)
         }
+        addTextVC.modalPresentationStyle = .fullScreen
         self.present(addTextVC, animated: true, completion: nil)
     }
     fileprivate func sp_dealSelect(model : SPQRCodeModel?){

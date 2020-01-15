@@ -155,7 +155,8 @@ class SPQRCodeVC: SPBaseVC {
 extension SPQRCodeVC {
     /// 点击分享
     @objc fileprivate func sp_clickShare(){
-        if let shareImg = UIImage.sp_image(view: self.qrCodeView){
+       
+        if let shareImg =  self.qrCodeView.sp_image(){
             SPShare.sp_share(imgs: [shareImg], vc: self)
         }
     }

@@ -61,3 +61,4 @@
 "no_data_identified" = "没有识别到数据";
 "click_voice_btn" = "请点击按钮开始识别";
 "want_create_qrcode" = "请说出您想要生成二维码的内容";
+"no_speech_auth_tip" = "没有开启语音识别功能，请在设置中开启权限";
