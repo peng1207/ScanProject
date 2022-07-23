@@ -37,18 +37,32 @@ class SPBaseNavVC: UINavigationController {
     override var childForStatusBarHidden: UIViewController? {
         return self.topViewController
     }
+
+    override func viewDidLoad() {
+        if #available(iOS 13.0, *) {
+            let navBar = UINavigationBarAppearance()
+            navBar.backgroundImage = UIImage.sp_image(color: SPColorForHexString(hex: SPHexColor.color_000000.rawValue))
+            navBar.backgroundColor = SPColorForHexString(hex: SPHexColor.color_333333.rawValue)
+            navBar.shadowImage = UIImage()
+            self.navigationBar.standardAppearance = navBar
+            self.navigationBar.scrollEdgeAppearance = navBar
+        } else {
+ 
+        }
+      
+    }
 }
 
 extension UINavigationController{
     
     class func sp_initialize(){
         let navBar = UINavigationBar.appearance()
-      
+        navBar.barTintColor = SPColorForHexString(hex: SPHexColor.color_333333.rawValue)
         navBar.setBackgroundImage( UIImage.sp_image(color: SPColorForHexString(hex: SPHexColor.color_000000.rawValue)), for: UIBarMetrics.default)
         //        navBar.barTintColor = SPColorForHexString(hex: SP_HexColor.color_ffffff.rawValue)
-        //        navBar.backgroundColor = SPColorForHexString(hex: SP_HexColor.color_b31f3f.rawValue)
+        navBar.backgroundColor = SPColorForHexString(hex: SPHexColor.color_333333.rawValue)
         navBar.shadowImage = UIImage()
-       
+
         navBar.titleTextAttributes = [NSAttributedString.Key.font :  sp_fontSize(fontSize: 18),NSAttributedString.Key.foregroundColor : UIColor.white]
 //        UIApplication.shared.statusBarStyle = .lightContent
     }

@@ -23,24 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let mainNav = SPBaseNavVC(rootViewController: mainVC)
         self.window?.rootViewController = mainNav
         self.window?.makeKeyAndVisible()
-      
         
-        
-//        let properties = CIFilter.filterNames(inCategory: kCICategoryBuiltIn)
-//        for fileterName : String in properties {
-//            let filter = CIFilter(name: fileterName)
-//            // 滤镜的参数
-//            sp_log(message: "滤镜名称----\(fileterName)")
-//            sp_log(message: filter?.attributes)
-//        }
-//       sp_log(message:  UIFont.familyNames)
-//        let fys = UIFont.familyNames
-//        for fy in fys {
-//            let fts = UIFont.fontNames(forFamilyName: fy)
-//            for ft in fts {
-//                print(ft)
-//            }
-//        }
         
         //         Override point for customization after application launch.
         return true

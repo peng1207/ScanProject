@@ -16,6 +16,15 @@ class SPHistoryVC: SPBaseVC {
         let view = UISegmentedControl(items: [SPLanguageChange.sp_getString(key: "establish"),SPLanguageChange.sp_getString(key: "scan")])
         view.frame = CGRect(x: 0, y: 0, width: 160, height: 30)
         view.tintColor = UIColor.white
+        
+        if #available(iOS 13.0, *) {
+            view.selectedSegmentTintColor = UIColor.white
+            
+            view.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : UIColor.black], for: .selected)
+            view.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : UIColor.white], for: .normal)
+        } else {
+            // Fallback on earlier versions
+        }
         view.selectedSegmentIndex = 0
         view.addTarget(self, action: #selector(sp_clickSegment), for: UIControl.Event.valueChanged)
         return view

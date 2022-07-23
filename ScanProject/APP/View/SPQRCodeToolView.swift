@@ -40,6 +40,7 @@ class SPQRCodeToolView:  UIView{
         self.collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
+        self.collectionView.backgroundColor = SPColorForHexString(hex: SPHexColor.color_000000.rawValue)
 //        self.collectionView.alwaysBounceVertical = true
         self.collectionView.register(SPQRCodeToolCollectionCell.self, forCellWithReuseIdentifier: self.cellID)
         self.collectionView.showsVerticalScrollIndicator = false

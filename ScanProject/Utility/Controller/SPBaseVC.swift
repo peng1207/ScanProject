@@ -9,16 +9,17 @@
 import Foundation
 import UIKit
 import SPCommonLibrary
-class SPBaseVC : UIViewController{
+class SPBaseVC : UIViewController,UIGestureRecognizerDelegate{
     lazy var safeView : UIView = {
         let view = UIView()
         view.backgroundColor = SPColorForHexString(hex: SPHexColor.color_000000.rawValue)
         return view
     }()
-    
+    var backEnabled : Bool = true
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return .lightContent
     }
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupBase()
@@ -43,6 +44,8 @@ extension  SPBaseVC{
         // UI适配
         self.edgesForExtendedLayout = UIRectEdge.init(rawValue: 0)
         self.view.backgroundColor = SPColorForHexString(hex: SPHexColor.color_333333.rawValue)
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = self.backEnabled
     }
     
 }
