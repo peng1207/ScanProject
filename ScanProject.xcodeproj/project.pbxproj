@@ -56,6 +56,7 @@
 		9EDCFA5722F02EBC0058F291 /* SPBusinessCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDCFA5622F02EBC0058F291 /* SPBusinessCardView.swift */; };
 		9EDCFA5922F02ED20058F291 /* SPWifiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDCFA5822F02ED20058F291 /* SPWifiView.swift */; };
 		9EDCFA5B22F0380E0058F291 /* SPIndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDCFA5A22F0380E0058F291 /* SPIndexView.swift */; };
+		9EE53795249FB0A2009D4362 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EE53794249FB0A2009D4362 /* LaunchScreen.storyboard */; };
 		AE66DDAF3F79CC8BE9892426 /* Pods_ScanProjectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54C570A87D551F80D5B9242A /* Pods_ScanProjectTests.framework */; };
 		D31EC0B2EB49B6E2C27BCF48 /* Pods_ScanProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DCC42A1DD6CF1224EB6A684 /* Pods_ScanProject.framework */; };
 /* End PBXBuildFile section */
@@ -139,6 +140,7 @@
 		9EDCFA5622F02EBC0058F291 /* SPBusinessCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPBusinessCardView.swift; sourceTree = "<group>"; };
 		9EDCFA5822F02ED20058F291 /* SPWifiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPWifiView.swift; sourceTree = "<group>"; };
 		9EDCFA5A22F0380E0058F291 /* SPIndexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPIndexView.swift; sourceTree = "<group>"; };
+		9EE53794249FB0A2009D4362 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BAAA7C57A16F6356379F387F /* Pods-ScanProjectUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScanProjectUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ScanProjectUITests/Pods-ScanProjectUITests.release.xcconfig"; sourceTree = "<group>"; };
 		BF32F7A0EBCB791EC1834E55 /* Pods-ScanProjectUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScanProjectUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ScanProjectUITests/Pods-ScanProjectUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		DE3210EA894AD6791A8222A7 /* Pods-ScanProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScanProjectTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ScanProjectTests/Pods-ScanProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				9E2C6E4B211F4ADD00091EF6 /* AppDelegate.swift */,
 				9E2C6E52211F4ADE00091EF6 /* Assets.xcassets */,
 				9E2C6E57211F4ADE00091EF6 /* Info.plist */,
+				9EE53794249FB0A2009D4362 /* LaunchScreen.storyboard */,
 				9EDC279622EB04D200F22529 /* Localizable.strings */,
 				9EDC279C22EB052D00F22529 /* InfoPlist.strings */,
 			);
@@ -298,10 +301,10 @@
 			children = (
 				9E9D744722EC227A0033A259 /* SPScanManager.swift */,
 				9EDCFA3E22EEE6E90058F291 /* SPQRCodeModel.swift */,
+				9E9D05E022FACD0100D89C94 /* SPDataBase.swift */,
 				9E27B29822F12747004638A1 /* SPIndexModel.swift */,
 				9E05D69222F2DC9900D9E907 /* SPVoiceManager.swift */,
 				9E9D05C422F81FAE00D89C94 /* SPQRCodeDataModel.swift */,
-				9E9D05E022FACD0100D89C94 /* SPDataBase.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -478,6 +481,7 @@
 				9E2C6E53211F4ADE00091EF6 /* Assets.xcassets in Resources */,
 				9E05D69822F2E45D00D9E907 /* SPColor.plist in Resources */,
 				9EDC279A22EB052D00F22529 /* InfoPlist.strings in Resources */,
+				9EE53795249FB0A2009D4362 /* LaunchScreen.storyboard in Resources */,
 				9EDC279422EB04D200F22529 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -796,9 +800,9 @@
 			baseConfigurationReference = 7EC795862083D1324EED2276 /* Pods-ScanProject.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2020011501;
+				CURRENT_PROJECT_VERSION = 2022111501;
 				DEVELOPMENT_TEAM = 2X8ED8ZMS2;
 				INFOPLIST_FILE = ScanProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -806,7 +810,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.5;
+				MARKETING_VERSION = 1.0.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shupenghuang.scan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = ScanDev;
@@ -820,10 +824,10 @@
 			baseConfigurationReference = 61162F300980A3215E3EFB15 /* Pods-ScanProject.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2020011501;
+				CURRENT_PROJECT_VERSION = 2022111501;
 				DEVELOPMENT_TEAM = 2X8ED8ZMS2;
 				INFOPLIST_FILE = ScanProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -831,10 +835,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.5;
+				MARKETING_VERSION = 1.0.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shupenghuang.scan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = ScanAppStore;
+				PROVISIONING_PROFILE_SPECIFIER = ScanAdhoc;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

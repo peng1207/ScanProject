@@ -157,7 +157,9 @@ extension SPQRCodeVC {
     @objc fileprivate func sp_clickShare(){
        
         if let shareImg =  self.qrCodeView.sp_image(){
-            SPShare.sp_share(imgs: [shareImg], vc: self)
+            DispatchQueue.main.async {
+                SPShare.sp_share(imgs: [shareImg], vc: self)
+            }
         }
     }
 

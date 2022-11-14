@@ -38,7 +38,12 @@ class SPVoiceManager : NSObject ,SFSpeechRecognizerDelegate {
     
     /// 初始化语音转换
     fileprivate func sp_sendSpeech(){
-        speecjRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "zh-CN"))
+        if SPLanguageChange.sp_chinese() {
+            speecjRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "zh-CN"))
+        } else {
+            speecjRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "en_US"))
+        }
+        
         speecjRecognizer.delegate = self
     }
     

@@ -50,59 +50,51 @@ class SPQRCodeView:  UIView{
         guard let codeModel = self.model else {
             return
         }
-        
-        sp_sync { [weak self] in
-            if let codeData = codeModel.iconData {
-                if let img = UIImage(data: codeData){
-                    sp_mainQueue {
-                        if img.size.width != img.size.height {
-                            if img.size.width > img.size.height{
-                                self?.iconImgView.snp.updateConstraints({ (maker) in
-                                    maker.width.equalTo(50)
-                                    maker.height.equalTo(50.0 * img.size.height / img.size.width)
-                                })
-                            }else{
-                                self?.iconImgView.snp.updateConstraints({ (maker) in
-                                    maker.height.equalTo(50)
-                                    maker.width.equalTo(50.0 * img.size.width / img.size.height)
-                                })
-                            }
-                        }else{
-                            self?.iconImgView.snp.updateConstraints({ (maker) in
-                                maker.width.equalTo(50)
-                                maker.height.equalTo(50)
-                            })
-                        }
-                        self?.iconImgView.image = img
-                        self?.iconImgView.isHidden = false
-                        self?.iconImgView.sp_cornerRadius(radius:CGFloat( codeModel.iconRadius / 4.0))
+        sp_mainQueue { [weak self] in
+            if let codeData = codeModel.iconData,let img = UIImage(data: codeData) {
+                if img.size.width != img.size.height {
+                    if img.size.width > img.size.height{
+                        self?.iconImgView.snp.updateConstraints({ (maker) in
+                            maker.width.equalTo(50)
+                            maker.height.equalTo(50.0 * img.size.height / img.size.width)
+                        })
+                    }else{
+                        self?.iconImgView.snp.updateConstraints({ (maker) in
+                            maker.height.equalTo(50)
+                            maker.width.equalTo(50.0 * img.size.width / img.size.height)
+                        })
                     }
                 }else{
-                    sp_mainQueue {
-                        self?.iconImgView.isHidden = true
+                    self?.iconImgView.snp.updateConstraints({ (maker) in
+                        maker.width.equalTo(50)
+                        maker.height.equalTo(50)
+                    })
+                }
+                self?.iconImgView.image = img
+                self?.iconImgView.isHidden = false
+                self?.iconImgView.sp_cornerRadius(radius:CGFloat( codeModel.iconRadius / 4.0))
+                
+            }else{
+                self?.iconImgView.isHidden = true
+            }
+        }
+        if  let tmpModel = SPQRCodeModel.sp_init(model: codeModel) {
+            sp_sync { [weak self] in
+                // 处理二维码
+                var codeImg = SPQRCode.sp_create(qrCode: sp_getString(string: tmpModel.content), size: CGSize(width: sp_screenWidth(), height: sp_screenWidth()))
+                if let img = SPQRCodeDataModel.sp_codeOfBgImg(codeModel: tmpModel, originalImg: codeImg){
+                    codeImg = img
+                }else{
+                    if let img = SPQRCodeDataModel.sp_codeOfColor(codeModel: tmpModel, originalImg: codeImg){
+                        codeImg = img
                     }
                 }
-            }else{
                 sp_mainQueue {
-                    self?.iconImgView.isHidden = true
+                    self?.qrCodeImgView.image = codeImg
                 }
             }
         }
         
-        sp_sync { [weak self] in
-            // 处理二维码
-            var codeImg = SPQRCode.sp_create(qrCode: sp_getString(string: codeModel.content), size: CGSize(width: sp_screenWidth(), height: sp_screenWidth()))
-            if let img = SPQRCodeDataModel.sp_codeOfBgImg(codeModel: codeModel, originalImg: codeImg){
-                codeImg = img
-            }else{
-                if let img = SPQRCodeDataModel.sp_codeOfColor(codeModel: codeModel, originalImg: codeImg){
-                    codeImg = img
-                }
-            }
-            sp_mainQueue {
-                self?.qrCodeImgView.image = codeImg
-            }
-        }
         
         if sp_getString(string: codeModel.text).count > 0 || self.isShow {
             self.titleLabel.isHidden = false
